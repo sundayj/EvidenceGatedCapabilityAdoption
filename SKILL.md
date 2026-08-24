@@ -73,6 +73,18 @@ Experiment IDs identify historical experiments, not execution order.
 
 Never renumber prior experiments merely because priorities or dependencies changed. Use explicit dependency and priority fields for scheduling.
 
+## Pull-request hygiene
+
+When EGCA work results in a pull request, follow the host repository's conventions first. Unless the user or repository instructions expressly say otherwise:
+
+- assign the pull request to the current/authenticated GitHub user when that identity can be resolved safely;
+- apply all clearly appropriate existing repository labels based on the work performed (for example enhancement, bug, documentation, testing, performance, or repository-specific workflow labels);
+- do not invent or create labels merely to satisfy this rule unless the user asks for new labels;
+- record the branch/PR reference in durable EGCA state;
+- preserve draft/review status and other governance boundaries required by the host repository.
+
+If assignment or labeling cannot be completed because of permissions, unavailable labels, or unresolved identity, record that limitation instead of silently omitting it.
+
 ## Approval boundary
 
 EGCA does not override the host repository's governance. Stop before merge, deployment, destructive migration, publication, or other consequential actions whenever the project's own instructions require human approval.
