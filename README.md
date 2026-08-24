@@ -49,25 +49,94 @@ This repository has two goals:
 
 The method is deliberately **storage-agnostic**. Google Sheets, Git-tracked files, issue trackers, or a database can all serve as durable EGCA state if they preserve the required concepts.
 
+## Install in Codex
+
+The installable skill lives at:
+
+```text
+skills/evidence-gated-capability-adoption
+```
+
+The `SKILL.md` includes the YAML frontmatter Codex requires (`name` and `description`). Codex installs skills under `$CODEX_HOME/skills`, which defaults to `~/.codex/skills`.
+
+### Recommended: ask Codex to install it
+
+In Codex, ask:
+
+```text
+Use $skill-installer to install the skill from
+https://github.com/sundayj/EvidenceGatedCapabilityAdoption/tree/main/skills/evidence-gated-capability-adoption
+```
+
+Codex's built-in skill installer accepts GitHub repository paths and installs the selected directory into your Codex skills directory.
+
+After installation, restart Codex so it reloads the skill list.
+
+### Install with the built-in installer script
+
+If you are invoking Codex's bundled installer manually, use the repository plus the skill path:
+
+```bash
+python3 scripts/install-skill-from-github.py \
+  --repo sundayj/EvidenceGatedCapabilityAdoption \
+  --path skills/evidence-gated-capability-adoption
+```
+
+Run that command from the bundled `skill-installer` skill directory (the exact location is Codex-version dependent).
+
+### Reinstall or update an existing installation
+
+The built-in installer intentionally refuses to overwrite an existing skill directory. Remove the old copy first, then install again:
+
+```bash
+rm -rf "${CODEX_HOME:-$HOME/.codex}/skills/evidence-gated-capability-adoption"
+```
+
+Then repeat one of the installation methods above and restart Codex.
+
+If you previously copied this repository root directly into `~/.codex/skills/evidence-gated-capability-adoption`, reinstall from the `skills/evidence-gated-capability-adoption` path so future packaging changes remain isolated from repository-level documentation.
+
+### Verify the installation
+
+Check that the installed skill starts with valid frontmatter:
+
+```bash
+sed -n '1,8p' "${CODEX_HOME:-$HOME/.codex}/skills/evidence-gated-capability-adoption/SKILL.md"
+```
+
+It should begin with:
+
+```yaml
+---
+name: evidence-gated-capability-adoption
+description: ...
+---
+```
+
+If Codex reports `missing YAML frontmatter delimited by ---`, the installed copy is stale or was copied from a pre-fix version. Remove it and reinstall as above.
+
 ## Repository layout
 
 ```text
 .
-├── SKILL.md
-├── references/
-│   └── methodology.md
-├── templates/
-│   ├── tracker-schema.md
-│   ├── candidate-template.md
-│   ├── source-investigation-template.md
-│   ├── experiment-template.md
-│   ├── decision-record-template.md
-│   └── goal-prompt-template.md
+├── README.md
+├── AGENTS.md
+├── LICENSE
+├── SKILL.md                         # root-compatible copy
+├── references/                      # repository-level source/reference copy
+├── templates/                       # repository-level source/template copy
 ├── schemas/
-│   └── experiment.schema.json
-└── examples/
-    └── README.md
+├── examples/
+└── skills/
+    └── evidence-gated-capability-adoption/   # canonical installable skill
+        ├── SKILL.md
+        ├── references/
+        ├── templates/
+        ├── schemas/
+        └── examples/
 ```
+
+The nested directory is the canonical Codex-installable package. The root copies remain convenient for browsing and development of the methodology repository itself.
 
 ## Core invariants
 
