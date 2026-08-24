@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sundayj/EvidenceGatedCapabilityAdoption/schemas/experiment.schema.json",
+  "title": "EGCA Experiment",
+  "type": "object",
+  "required": [
+    "experiment_id",
+    "candidate_id",
+    "title",
+    "hypothesis",
+    "scope",
+    "success_evidence",
+    "rejection_evidence",
+    "status"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^E-[0-9]{3,}$"
+    },
+    "candidate_id": {
+      "type": "string",
+      "pattern": "^C-[0-9]{3,}$"
+    },
+    "title": {"type": "string", "minLength": 1},
+    "hypothesis": {"type": "string", "minLength": 1},
+    "scope": {"type": "string", "minLength": 1},
+    "out_of_scope": {
+      "type": "array",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "success_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string"}
+    },
+    "rejection_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string"}
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^E-[0-9]{3,}$"},
+      "uniqueItems": true,
+      "default": []
+    },
+    "execution_priority": {
+      "oneOf": [
+        {"type": "integer", "minimum": 1},
+        {"type": "string", "minLength": 1},
+        {"type": "null"}
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Planned", "Approved", "Running", "Validating", "Complete", "Blocked"]
+    },
+    "repository_references": {
+      "type": "array",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "observed_evidence": {
+      "type": "array",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "decision": {
+      "oneOf": [
+        {"type": "string", "enum": ["Adopt", "Adapt", "Reject", "Repeat"]},
+        {"type": "null"}
+      ]
+    },
+    "rationale": {
+      "oneOf": [
+        {"type": "string"},
+        {"type": "null"}
+      ]
+    },
+    "follow_up": {
+      "oneOf": [
+        {"type": "string"},
+        {"type": "null"}
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"status": {"const": "Complete"}},
+        "required": ["status"]
+      },
+      "then": {
+        "required": ["decision", "observed_evidence"]
+      }
+    }
+  ],
+  "additionalProperties": true
+}
