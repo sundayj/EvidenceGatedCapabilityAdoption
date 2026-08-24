@@ -22,6 +22,25 @@ Software teams and coding agents are both prone to collapsing distinct states:
 
 EGCA keeps those states separate so enthusiasm, authority, or implementation momentum cannot substitute for evidence.
 
+## Integration isolation
+
+EGCA also separates **validated experiment work** from the repository's **production baseline**.
+
+A single EGCA program should create one long-lived feature/integration branch from the approved baseline before experiments begin. All experiment and adaptation branches are based on that cumulative branch and, when their evidence gates justify integration, merge back into it. They do not merge directly into `main`.
+
+```text
+main
+  └── feature/<egca-program>
+        ├── experiment/e-001-...
+        ├── adaptation/e-001-...
+        ├── experiment/e-002-...
+        └── ...
+```
+
+This matters because an experiment may prove a local hypothesis without proving that the broader capability program is ready for production. Merging every successful experiment directly into `main` turns experiment-level evidence gates into piecemeal production releases and makes later rejection, adaptation, or cross-experiment reconciliation harder.
+
+The feature branch is therefore the cumulative **candidate architecture**. `main` remains the production baseline until the whole EGCA program passes a program-level final evidence gate. The host repository may use a different branch name or stricter release model; preserve the same logical isolation using its equivalent integration branch.
+
 ## Lifecycle
 
 ### 1. Candidate
@@ -46,7 +65,7 @@ State a falsifiable prediction. Define what would count against it before implem
 
 Question: **What is the cheapest bounded change that can answer the architectural question?**
 
-The experiment exists to reduce uncertainty, not to disguise a production rollout as research.
+The experiment exists to reduce uncertainty, not to disguise a production rollout as research. Create the experiment branch from the current EGCA feature branch so it tests against the cumulative candidate architecture established by prior accepted/adapted work.
 
 ### 5. Evidence
 
@@ -69,9 +88,22 @@ Choose one:
 - **Reject**
 - **Repeat**
 
+The branch consequence follows the decision:
+
+- **Adopt:** integrate the validated experiment into the EGCA feature branch.
+- **Adapt:** implement the evidence-supported adaptation from the EGCA feature branch, validate it, then integrate that adaptation into the feature branch.
+- **Reject:** do not integrate the rejected implementation; preserve its branch/PR and evidence if useful.
+- **Repeat:** keep the cumulative branch stable and create another bounded experiment from it.
+
 ### 8. Record
 
 Preserve the rationale so future humans and agents do not need to reverse-engineer the decision from commits or chat transcripts.
+
+### 9. Program-level final gate
+
+When the candidate set is resolved and all required integrations are present on the EGCA feature branch, validate the branch as a whole against the current repository baseline and release criteria.
+
+Only after this final gate passes should the feature branch be merged into `main` or the host repository's equivalent production branch. This is the point at which the cumulative candidate architecture becomes production architecture.
 
 ## Relationship to established practices
 
@@ -86,14 +118,14 @@ It borrows from:
 - **evolutionary architecture** — incremental architectural change guided by feedback;
 - **Architecture Decision Records** — durable rationale for important decisions.
 
-EGCA's emphasis is specifically **capability adoption**, including source investigation, smallest useful experiments, explicit evidence gates, stable experiment identities, and durable agent-readable state.
+EGCA's emphasis is specifically **capability adoption**, including source investigation, smallest useful experiments, explicit evidence gates, stable experiment identities, cumulative integration isolation, and durable agent-readable state.
 
 ## Durable state versus memory
 
 EGCA state is not the same as agent memory or runtime checkpointing.
 
 - **Repository truth** answers: what code and behavior currently exist?
-- **EGCA project state** answers: what are we investigating, testing, and deciding, and why?
+- **EGCA project state** answers: what are we investigating, testing, integrating into the candidate architecture, and deciding, and why?
 - **Agent memory** answers: what context should an agent retain across interactions?
 - **Runtime checkpoints** answer: where did a long-running workflow stop and how can it resume?
 
@@ -135,7 +167,8 @@ A strong experiment:
 - minimizes unrelated production change;
 - is reversible or bounded where practical;
 - produces evidence beyond agent self-report;
-- records negative results as useful information.
+- records negative results as useful information;
+- remains isolated from `main` until the full EGCA program is ready.
 
 A weak experiment:
 
@@ -144,7 +177,8 @@ A weak experiment:
 - measures only whether tests are green;
 - changes many architectural variables at once;
 - declares success because implementation completed;
-- rewrites the hypothesis after seeing the result.
+- rewrites the hypothesis after seeing the result;
+- merges partial EGCA capability work directly to the production branch.
 
 ## Maturity
 

@@ -21,6 +21,25 @@ Candidate
 
 EGCA combines ideas from hypothesis-driven development, technical/architectural spikes, Lean experimentation, evolutionary architecture, and Architecture Decision Records. The name describes this particular synthesis; it does not claim those underlying practices are new.
 
+## Branching model
+
+One EGCA tracker/program owns one cumulative feature/integration branch. Create it from the approved repository baseline before experiments begin.
+
+Each experiment or production adaptation branches from that feature branch and merges back into it only when its evidence gate justifies integration. Rejected experiments remain historical evidence and are not merged into the cumulative branch.
+
+```text
+main
+  └── feature/<egca-program>
+        ├── experiment/e-001-...
+        ├── adaptation/e-001-...
+        ├── experiment/e-002-...
+        └── ...
+```
+
+Partial EGCA adoption work must not be merged directly into `main`. The cumulative feature branch is merged into `main` only once the complete capability-adoption program is ready, the program-level final evidence gate passes, and the host repository's normal approval requirements are satisfied.
+
+This isolation is deliberate: an experiment can validate one piece of an architecture without making that partial architecture a production baseline for unrelated work.
+
 ## Why this repository exists
 
 This repository has two goals:
@@ -57,6 +76,9 @@ The method is deliberately **storage-agnostic**. Google Sheets, Git-tracked file
 - Every experiment must test a falsifiable hypothesis.
 - Prefer the smallest bounded change that can produce meaningful evidence.
 - Stable experiment IDs are independent of execution priority.
+- One EGCA program uses one cumulative feature/integration branch.
+- Experiment and adaptation branches target that feature branch, not `main`.
+- `main` remains free of partial EGCA adoption work until the program-level final evidence gate passes.
 - Repository reality and measured behavior outrank tracker assumptions.
 - An agent's assertion is not evidence.
 - Every completed experiment ends with **Adopt**, **Adapt**, **Reject**, or **Repeat** and a durable rationale.
