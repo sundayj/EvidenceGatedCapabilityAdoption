@@ -60,6 +60,7 @@ The method is deliberately **storage-agnostic**. Google Sheets, Git-tracked file
 - Repository reality and measured behavior outrank tracker assumptions.
 - An agent's assertion is not evidence.
 - Every completed experiment ends with **Adopt**, **Adapt**, **Reject**, or **Repeat** and a durable rationale.
+- When EGCA work produces a pull request, follow host-repository conventions and, unless expressly disabled, assign the current/authenticated GitHub user and apply clearly appropriate existing labels when possible.
 - Consequential merge/deployment actions remain subject to the host project's approval rules.
 
 ## Status
