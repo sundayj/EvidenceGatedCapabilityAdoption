@@ -13,10 +13,6 @@ Do **not** use the full process for trivial fixes, obvious dependency bumps, or 
 
 Turn promising ideas into evidence-backed architectural decisions without allowing research findings, agent suggestions, or source-project features to silently become implementation commitments.
 
-EGCA is **not** a minimum-code or "always simplify" methodology. Prefer the smallest experiment that can answer the current question, but allow the evidence gate to justify additional models, abstractions, dependencies, or other architecture when the evidence supports them. The target is justified architecture, not minimum lines of code.
-
-Minimal-implementation disciplines such as [Ponytail](references/related-work.md) can complement EGCA by constraining an experiment or accepted implementation after the adoption question and experiment boundary are understood.
-
 ## Required lifecycle
 
 1. **Establish baseline**
@@ -46,8 +42,6 @@ Minimal-implementation disciplines such as [Ponytail](references/related-work.md
 6. **Design the smallest useful experiment**
    - Prefer the cheapest bounded repository change capable of answering the architectural question.
    - Do not turn an experiment into a disguised production rollout.
-   - When useful, predeclare an implementation boundary such as allowed files, function/interface names and inputs/outputs, or another explicit scope budget. Require the agent to stop and explain why the boundary is insufficient rather than silently widening it.
-   - Do not freeze such a boundary before investigation; a premature interface budget can encode the wrong architecture. Treat a justified request to cross the boundary as evidence to review.
    - Assign a stable experiment ID that is never reused or renumbered.
    - Track dependencies and execution priority separately from the ID.
 
@@ -171,4 +165,4 @@ When completing the program:
 3. record the program-level final evidence gate;
 4. only then prepare/merge the feature branch into `main` under host-repository governance.
 
-See `references/methodology.md` for rationale, `references/related-work.md` for adjacent tools and complementary techniques, and `templates/` for reusable records.
+See `references/methodology.md` for rationale and `templates/` for reusable records.
