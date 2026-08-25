@@ -43,6 +43,8 @@ References:
 
 A related practical technique is to constrain a coding agent with an explicit implementation surface before execution—for example, a list of permitted function names and their inputs/outputs, allowed files, or an interface budget. The agent is instructed to stop and explain why the boundary is insufficient rather than silently adding new functions, layers, or subsystems.
 
+This concrete technique was suggested to the EGCA project during an [r/codex discussion](https://www.reddit.com/r/codex/comments/1vxyfin/comment/p5sjtbp/) after the methodology was published. The commenter described defining the permitted function names and their input/output contracts, then requiring the agent to stop and explain if the task could not reasonably be completed within that constraint. That suggestion prompted its inclusion here. This attribution is for the contribution to EGCA's evolving practice, not a claim that the commenter originated the broader ideas of interface constraints, design by contract, or bounded implementation.
+
 This is useful inside EGCA as an **experiment-bounding technique**, especially when the hypothesis can be tested through a known interface. It reduces implementation drift and makes scope expansion visible to the human reviewer.
 
 It should not be applied mechanically. Investigation comes first. A prematurely frozen function list can encode the wrong architecture and prevent the experiment from discovering that an existing primitive or a different interface is better. Use predeclared boundaries when they help test the hypothesis; treat a justified request to cross the boundary as evidence to review, not automatically as agent failure.
