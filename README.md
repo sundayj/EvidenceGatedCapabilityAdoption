@@ -21,8 +21,6 @@ Candidate
 
 EGCA combines ideas from hypothesis-driven development, technical/architectural spikes, Lean experimentation, evolutionary architecture, and Architecture Decision Records. The name describes this particular synthesis; it does not claim those underlying practices are new.
 
-EGCA is also not a minimum-code methodology. The evidence gate may justify additional architecture when the evidence supports it. The goal is **justified architecture**, not the fewest possible lines of code.
-
 ## Branching model
 
 One EGCA tracker/program owns one cumulative feature/integration branch. Create it from the approved repository baseline before experiments begin.
@@ -155,12 +153,6 @@ The nested directory is the canonical Codex-installable package. The root copies
 - Every completed experiment ends with **Adopt**, **Adapt**, **Reject**, or **Repeat** and a durable rationale.
 - When EGCA work produces a pull request, follow host-repository conventions and, unless expressly disabled, assign the current/authenticated GitHub user and apply clearly appropriate existing labels when possible.
 - Consequential merge/deployment actions remain subject to the host project's approval rules.
-
-## Related work
-
-[Ponytail](https://github.com/DietrichGebert/ponytail) directly attacks agent over-engineering by preferring the least code that safely works. It overlaps with EGCA's emphasis on investigating existing primitives before adding new implementation, but the two operate at different levels: EGCA governs whether a capability or architectural idea earns adoption, while Ponytail constrains implementation toward the smallest sufficient solution.
-
-They can be used together. See [`references/related-work.md`](references/related-work.md) for the comparison, benchmark caveats, and an additional experiment-bounding technique based on predeclared function/interface boundaries.
 
 ## Status
 
