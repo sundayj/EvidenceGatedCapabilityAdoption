@@ -156,9 +156,11 @@ The nested directory is the canonical Codex-installable package. The root copies
 
 ## Status
 
-**v0.1 — experimental.**
+**v0.1 — experimental, with multiple real-world validation runs completed.**
 
-The initial method was developed while evaluating architectural capabilities in a private full-stack application. Before calling EGCA stable, the skill should be used to bootstrap at least one unrelated capability-adoption program and refined from that evidence.
+The method originated while evaluating architectural capabilities in a private full-stack application. It has since been exercised on unrelated work, including a public two-repository Jekyll modernization using Google Sheets as durable state and a production workplace case using Git-tracked Markdown. Those runs validated the storage-agnostic design and also changed the methodology itself: they added clearer cumulative-integration rules, environment-blocked validation, experiment execution-log guidance, and a stronger burden of proof for new abstractions.
+
+EGCA remains experimental because the goal is not to freeze the method after a few successful uses. Additional projects, failure cases, multi-agent workflows, and team-scale use should continue to refine the skill and its evidence gates.
 
 ## License
 
