@@ -1,0 +1,1 @@
+Add labels to projects. A signed-in user should be able to add a label to one of their own projects, and users must not be able to change projects they do not own. Keep the existing project mutation behavior working consistently.

@@ -1,0 +1,11 @@
+[project]
+name = "egca-r001-click-fixture"
+version = "0.0.0"
+requires-python = ">=3.10"
+dependencies = ["click==8.5.0"]
+
+[dependency-groups]
+test = ["pytest>=8,<10"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
