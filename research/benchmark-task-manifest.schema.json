@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sundayj/EvidenceGatedCapabilityAdoption/research/benchmark-task-manifest.schema.json",
+  "title": "EGCA Ponytail Benchmark Task Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "primary_stratum",
+    "provenance",
+    "source",
+    "baseline",
+    "prompt",
+    "risk_axes",
+    "exposure",
+    "architectural_envelope",
+    "curation"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
+    "status": {"enum": ["screening", "pilot", "confirmatory-candidate", "confirmatory-frozen", "rejected"]},
+    "primary_stratum": {"enum": ["S1-overbuild", "S2-reuse", "S3-irreducible", "S4-reject-defer", "S5-justified-architecture", "S6-ambiguous-brownfield"]},
+    "risk_axes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"enum": ["security", "robustness", "data-integrity", "accessibility", "performance", "concurrency", "api-compatibility", "cross-boundary", "dependency-choice"]}
+    },
+    "provenance": {"enum": ["historical-real", "derived-real", "synthetic-brownfield", "benchmark-derived"]},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "source_url"],
+      "properties": {
+        "repository": {"type": "string"},
+        "source_url": {"type": ["string", "null"]},
+        "issue_or_pr": {"type": ["string", "null"]},
+        "notes": {"type": ["string", "null"]}
+      }
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sha"],
+      "properties": {
+        "sha": {"type": ["string", "null"]},
+        "fixture_sha": {"type": ["string", "null"]},
+        "build_command": {"type": ["string", "null"]},
+        "test_command": {"type": ["string", "null"]}
+      }
+    },
+    "prompt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "sha256", "neutrality_reviewed"],
+      "properties": {
+        "text": {"type": ["string", "null"]},
+        "sha256": {"type": ["string", "null"]},
+        "neutrality_reviewed": {"type": "boolean"}
+      }
+    },
+    "exposure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["treatment_exposure", "author_familiarity", "public_solution_leakage"],
+      "properties": {
+        "treatment_exposure": {"enum": ["low", "medium", "high"]},
+        "author_familiarity": {"enum": ["low", "medium", "high"]},
+        "public_solution_leakage": {"enum": ["low", "medium", "high"]},
+        "notes": {"type": ["string", "null"]}
+      }
+    },
+    "architectural_envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_properties", "acceptable_commitments", "unjustified_commitments", "underbuild_signals", "overbuild_signals"],
+      "properties": {
+        "required_properties": {"type": "array", "items": {"type": "string"}},
+        "acceptable_commitments": {"type": "array", "items": {"type": "string"}},
+        "unjustified_commitments": {"type": "array", "items": {"type": "string"}},
+        "underbuild_signals": {"type": "array", "items": {"type": "string"}},
+        "overbuild_signals": {"type": "array", "items": {"type": "string"}},
+        "responsibility_boundary": {"type": ["string", "null"]},
+        "sha256": {"type": ["string", "null"]}
+      }
+    },
+    "curation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reference_ready", "antireference_ready", "hidden_tests_ready", "independent_classification_ready", "independence_review", "disposition_reason"],
+      "properties": {
+        "reference_ready": {"type": "boolean"},
+        "antireference_ready": {"type": "boolean"},
+        "hidden_tests_ready": {"type": "boolean"},
+        "independent_classification_ready": {"type": "boolean"},
+        "independence_review": {"enum": ["pending", "pass", "pilot-only", "reject"]},
+        "disposition_reason": {"type": ["string", "null"]},
+        "reviewers": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}
