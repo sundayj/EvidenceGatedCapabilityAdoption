@@ -15,6 +15,7 @@ Recommended fields:
 - Baseline reference
 - EGCA feature/integration branch
 - Final integration PR
+- Execution ledger reference
 - Last reviewed
 - Notes
 
@@ -67,9 +68,46 @@ The EGCA feature/integration branch is the cumulative candidate-release branch f
 | Integration result | Not integrated / Integrated to feature branch / Superseded by adaptation |
 | Validation | Tests, measurements, UX, runtime observations |
 | Observed evidence | What actually happened |
+| Executor | Human / ChatGPT / Codex / other agent / hybrid / unknown |
+| Execution start / end | Timing markers when known |
+| Elapsed time | Wall-clock, agent-reported, or repository-window duration with type identified |
+| Human intervention | Active time or intervention count when defensible |
+| Model / reasoning | Primary model/tier and reasoning level when exposed |
+| Agent runs / rework | Number of execution and corrective passes when known |
+| Delegation summary | Count or compact summary; detailed delegations belong in the execution ledger |
+| Usage / quota | Token/context/credit/allocation usage with the runtime's original unit |
+| Telemetry confidence | High / Medium / Low, with provenance when needed |
+| Execution ledger reference | Pointer to detailed forensic events when applicable |
 | Decision | Adopt / Adapt / Reject / Repeat |
 | Decision record | Reference to rationale |
 | Follow-up | Resulting work or next experiment |
+
+Execution telemetry is process evidence. It must not substitute for capability validation evidence. Unknown telemetry values should remain unknown rather than being guessed.
+
+## Execution ledger
+
+Use a separate append-only execution ledger for non-trivial, delegated, or case-study-worthy programs. It may be a tracker tab, a Git-tracked Markdown/YAML/JSON file beside the tracker, or another durable backend.
+
+Recommended event fields:
+
+| Field | Purpose |
+|---|---|
+| Timestamp | When the event occurred |
+| Experiment / adaptation ID | Work item being executed |
+| Executor | Human or agent responsible |
+| Task / delegation | Bounded activity performed |
+| Model / tier | Model used when configurable or observable |
+| Reasoning level | Reasoning effort when configurable or observable |
+| Delegation rationale | Why this task was delegated |
+| Result | Outcome of the event |
+| Used? | Whether a delegated result contributed to final work |
+| Elapsed | Runtime or bounded event duration when known |
+| Human intervention | Whether a human decision/correction was required |
+| Repository reference | Branch, commit, PR, test, CI, or evidence document |
+| Measurement source | Runtime report, usage UI, commit chronology, chat timestamp, human recollection, etc. |
+| Confidence | High / Medium / Low |
+
+The ledger is evidence provenance, not a transcript. Do not store full chain-of-thought, full chat logs, secrets, or unnecessary private data.
 
 ## Decision log
 
@@ -100,6 +138,9 @@ Recommended fields or a dedicated final-gate record:
 - Baseline reconciliation result
 - Known residual risks
 - Final release decision
+- Program execution summary
+- Execution ledger reference
+- Known telemetry gaps
 
 The feature-to-main PR is a program-level artifact. It should not be used as the target for individual experiments.
 
@@ -114,3 +155,7 @@ The feature-to-main PR is a program-level artifact. It should not be used as the
 7. Experiment and adaptation branches are based on and merge into that feature branch, not directly into `main`.
 8. Rejected experiments are not merged into the feature branch merely to preserve history; preserve branch/PR/evidence references instead.
 9. The feature branch merges to `main` only after the program-level final evidence gate passes and host-repository approval requirements are satisfied.
+10. Record execution telemetry when it is available and materially useful, especially for delegated or autonomous agent runs.
+11. Distinguish agent runtime, wall-clock time, repository activity windows, and human estimates rather than collapsing them into one duration.
+12. Preserve the unit and provenance of token/context/credit/quota measurements.
+13. Keep detailed forensic execution events in the execution ledger; keep experiment rows concise.
