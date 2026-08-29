@@ -1,0 +1,10 @@
+{
+  "name": "evidence-gated-capability-adoption",
+  "version": "0.2.0",
+  "schema_version": 1,
+  "repository": "sundayj/EvidenceGatedCapabilityAdoption",
+  "channel": "main",
+  "skill_path": "skills/evidence-gated-capability-adoption",
+  "changelog_path": "CHANGELOG.md",
+  "migrations_path": "MIGRATIONS.md"
+}

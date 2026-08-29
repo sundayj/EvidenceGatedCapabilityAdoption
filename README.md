@@ -84,15 +84,38 @@ python3 scripts/install-skill-from-github.py \
 
 Run that command from the bundled `skill-installer` skill directory (the exact location is Codex-version dependent).
 
-### Reinstall or update an existing installation
+### Check for skill updates
 
-The built-in installer intentionally refuses to overwrite an existing skill directory. Remove the old copy first, then install again:
+Beginning with EGCA 0.2.0, the installed package contains a read-only update checker:
+
+```bash
+cd "${CODEX_HOME:-$HOME/.codex}/skills/evidence-gated-capability-adoption"
+python scripts/egca_update.py check
+```
+
+The checker reports the installed version, available version, exact canonical Git commit, changelog, and migration notes. It **does not modify any files**.
+
+An agent may run this check and explain the proposed update. It must obtain explicit user approval for the exact commit shown before applying anything.
+
+After approval:
+
+```bash
+python scripts/egca_update.py update --approved-sha <exact-approved-sha>
+```
+
+The updater re-checks the canonical branch. If the branch moved after approval, it refuses the update and requires a fresh check and new approval. Before replacing package files it creates a sibling backup of the installed skill directory.
+
+There is intentionally no unattended or silent self-update mode.
+
+### Updating a pre-0.2 installation
+
+Older installations do not contain the updater. The built-in installer intentionally refuses to overwrite an existing skill directory, so remove the old copy first:
 
 ```bash
 rm -rf "${CODEX_HOME:-$HOME/.codex}/skills/evidence-gated-capability-adoption"
 ```
 
-Then repeat one of the installation methods above and restart Codex.
+Then reinstall from the canonical skill path above and restart/reload Codex.
 
 If you previously copied this repository root directly into `~/.codex/skills/evidence-gated-capability-adoption`, reinstall from the `skills/evidence-gated-capability-adoption` path so future packaging changes remain isolated from repository-level documentation.
 
@@ -113,13 +136,29 @@ description: ...
 ---
 ```
 
-If Codex reports `missing YAML frontmatter delimited by ---`, the installed copy is stale or was copied from a pre-fix version. Remove it and reinstall as above.
+The installed package should also contain:
+
+```text
+manifest.json
+scripts/egca_update.py
+```
+
+## Distribution direction
+
+The repository remains the canonical source. EGCA currently supports standalone Agent Skill installation, while the long-term preferred distribution target is a versioned, skill-only plugin so eligible users can discover/install it through supported ChatGPT and Codex plugin surfaces.
+
+A repository-local copy remains useful when a project needs to pin its EGCA methodology version. A global skill/plugin update must not silently reinterpret historical experiments in an active EGCA program.
+
+See [`ROADMAP.md`](ROADMAP.md) for plugin packaging, release hardening, methodology-version pinning, and validation work.
 
 ## Repository layout
 
 ```text
 .
 ├── README.md
+├── ROADMAP.md
+├── CHANGELOG.md
+├── MIGRATIONS.md
 ├── AGENTS.md
 ├── LICENSE
 ├── SKILL.md                         # root-compatible copy
@@ -130,6 +169,9 @@ If Codex reports `missing YAML frontmatter delimited by ---`, the installed copy
 └── skills/
     └── evidence-gated-capability-adoption/   # canonical installable skill
         ├── SKILL.md
+        ├── manifest.json
+        ├── scripts/
+        │   └── egca_update.py
         ├── references/
         ├── templates/
         ├── schemas/
@@ -151,16 +193,20 @@ The nested directory is the canonical Codex-installable package. The root copies
 - Repository reality and measured behavior outrank tracker assumptions.
 - An agent's assertion is not evidence.
 - Every completed experiment ends with **Adopt**, **Adapt**, **Reject**, or **Repeat** and a durable rationale.
+- Skill updates may be checked read-only, but installed skill files may change only after explicit approval of the exact proposed source commit.
+- Active EGCA programs preserve the methodology version governing historical decisions; global updates do not rewrite history.
 - When EGCA work produces a pull request, follow host-repository conventions and, unless expressly disabled, assign the current/authenticated GitHub user and apply clearly appropriate existing labels when possible.
 - Consequential merge/deployment actions remain subject to the host project's approval rules.
 
 ## Status
 
-**v0.1 — experimental, with multiple real-world validation runs completed.**
+**v0.2 — experimental, with multiple real-world validation runs completed.**
 
 The method originated while evaluating architectural capabilities in a private full-stack application. It has since been exercised on unrelated work, including a public two-repository Jekyll modernization using Google Sheets as durable state and a production workplace case using Git-tracked Markdown. Those runs validated the storage-agnostic design and also changed the methodology itself: they added clearer cumulative-integration rules, environment-blocked validation, experiment execution-log guidance, and a stronger burden of proof for new abstractions.
 
-EGCA remains experimental because the goal is not to freeze the method after a few successful uses. Additional projects, failure cases, multi-agent workflows, and team-scale use should continue to refine the skill and its evidence gates.
+Version 0.2 adds explicit methodology/package lifecycle governance: version metadata, changelog/migration notes, approval-gated self-update support for installed skills, and a roadmap toward plugin distribution and reproducible methodology pinning.
+
+EGCA remains experimental because the goal is not to freeze the method after a few successful uses. Additional projects, failure cases, multi-agent workflows, team-scale use, and independent repeatable benchmarks should continue to refine the skill and its evidence gates.
 
 ## License
 

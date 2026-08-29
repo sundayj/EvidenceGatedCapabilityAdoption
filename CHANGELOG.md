@@ -1,0 +1,25 @@
+# Changelog
+
+All notable changes to EGCA are recorded here. EGCA remains experimental; version numbers describe methodology/package compatibility and do not imply production maturity.
+
+## 0.2.0 - 2026-08-28
+
+### Added
+
+- Explicit skill version metadata.
+- A roadmap for plugin distribution, reproducible methodology pinning, and EGCA-governed methodology evolution.
+- `scripts/egca_update.py` for checking the canonical repository for updates and applying an approved update.
+- An explicit approval boundary: update checks may be run proactively, but an installed skill may not replace itself until the user has approved the exact proposed repository commit.
+- Migration notes for active EGCA programs.
+
+### Security and governance
+
+- Updates are pinned to the exact Git commit shown during the check step.
+- The updater refuses an approval if the canonical branch head has moved since approval was granted.
+- The updater creates a local backup before replacing managed skill-package files.
+- Silent/background self-updates are explicitly prohibited by the skill contract.
+
+## 0.1.0
+
+- Initial public experimental methodology and Agent Skill package.
+- Evidence-gated lifecycle, Adopt/Adapt/Reject/Repeat decisions, durable-state requirements, and cumulative EGCA feature-branch isolation.

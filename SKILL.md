@@ -169,6 +169,37 @@ When EGCA work results in a pull request, follow the host repository's conventio
 
 If assignment or labeling cannot be completed because of permissions, unavailable labels, or unresolved identity, record that limitation instead of silently omitting it.
 
+## Skill lifecycle and updates
+
+The installable EGCA package may check its canonical source for updates. This is a read-only capability and does not authorize self-modification.
+
+When `manifest.json` and `scripts/egca_update.py` are present beside this installed skill package:
+
+1. Run `python scripts/egca_update.py check` to retrieve the canonical branch head, remote version, changelog, and migration notes.
+2. If no newer version exists, report that result and stop.
+3. If an update exists, show the user at least:
+   - installed version;
+   - proposed version;
+   - exact source commit SHA;
+   - relevant changelog/migration information;
+   - any known compatibility or active-program implications.
+4. Obtain **explicit user approval for that exact source commit** before changing installed skill files.
+5. Only after that approval, run `python scripts/egca_update.py update --approved-sha <sha>` using the exact SHA the user approved.
+6. If the updater reports that the canonical branch moved, do not substitute the new SHA automatically. Run `check` again, show the new proposal, and obtain fresh approval.
+7. Report the result and backup location after a successful update.
+
+Never:
+
+- update silently, in the background, on a timer, or merely because a newer version exists;
+- infer update approval from approval of unrelated work;
+- reuse approval for a different commit or materially different version;
+- bypass host/workspace permission or approval controls;
+- rewrite the governing methodology of an active EGCA program merely because the globally installed skill changed.
+
+For an active EGCA program, preserve the methodology version that governed historical decisions. A material mid-program methodology upgrade is itself an explicit decision and should be recorded in durable state with the point from which the new version applies.
+
+If this repository's root compatibility copy of `SKILL.md` is being used directly and the packaged updater files are not adjacent to it, treat Git/repository update mechanisms as authoritative rather than attempting to mutate the repository through the installed-skill updater.
+
 ## Approval boundary
 
 EGCA does not override the host repository's governance. Stop before merge, deployment, destructive migration, publication, or other consequential actions whenever the project's own instructions require human approval.
