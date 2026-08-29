@@ -61,6 +61,28 @@ How will evidence be collected?
 - PR:
 - tests/benchmarks:
 
+## Execution telemetry
+
+Keep this compact. Use a separate execution ledger for detailed events or subagent delegations.
+
+- executor: `Human | ChatGPT | Codex | Other agent | Hybrid | Unknown`
+- started at:
+- completed at:
+- wall-clock elapsed:
+- agent-reported elapsed:
+- human active time:
+- human interventions:
+- primary model / tier:
+- reasoning level:
+- agent runs:
+- corrective / rework runs:
+- delegation count:
+- usage / quota consumed:
+- execution ledger reference:
+- measurement provenance / confidence:
+
+Do not invent unavailable values. Distinguish runtime-reported duration, repository activity windows, and human estimates.
+
 ## Observed evidence
 
 Record what actually happened, including negative and unexpected findings.
