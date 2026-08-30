@@ -60,5 +60,7 @@ The repository should therefore become a longitudinal case study of EGCA's own e
 
 - [ ] Expand independent, repeatable benchmark coverage beyond longitudinal case studies.
 - [ ] Test multi-agent and team-scale workflows.
+- [ ] Compare EGCA against serious competing baselines, including agent alone, self-review/KISS, cross-model iterative simplicity review, Ponytail, EGCA, and optional EGCA + independent reviewer; see [`research/competing-baselines-validation.md`](research/competing-baselines-validation.md).
+- [ ] Measure cost, latency, duplicated context acquisition, rework, architectural quality, and total token/inference usage across competing workflows rather than assuming EGCA's durable tracker or any reviewer loop wins by design.
 - [ ] Test update behavior across Linux, macOS, Windows, and managed Codex environments.
 - [ ] Add adversarial update tests: moved branch head, malformed manifest, network failure, partial copy, unexpected local modifications, and rollback.
