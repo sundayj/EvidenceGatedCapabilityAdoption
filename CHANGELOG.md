@@ -11,7 +11,7 @@ All notable changes to EGCA are recorded here. EGCA remains experimental; versio
 - Criterion-to-production traceability across code paths, adversarial fixtures, automated assertions, and branch-matched runtime evidence.
 - Explicit lifecycle states for production readiness, merge, deployment, and operational validation.
 - Productionization fields in the experiment, decision, tracker, goal-prompt, and JSON-schema contracts.
-- A sanitized case-study learning describing the prototype-to-production evidence gap that motivated the change.
+- A full sanitized case study and distilled learning describing the prototype-to-production evidence gap that motivated the change.
 
 ### Changed
 

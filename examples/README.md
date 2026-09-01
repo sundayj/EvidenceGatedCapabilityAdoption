@@ -4,6 +4,10 @@ This directory contains public-safe examples showing how EGCA behaves in practic
 
 ## Available case studies
 
+### Prototype evidence and the productionization gap
+
+[`delivery-board-productionization-gap-case-study.md`](delivery-board-productionization-gap-case-study.md) records a sanitized production UI case where accepted fixture and static-prototype evidence did not cover real relationship cardinality or shared-component accessibility and responsive defaults. It distinguishes valid bounded experiment evidence from production readiness and motivates EGCA's evidence-applicability, productionization-delta, traceability, and release-state contracts.
+
 ### Selective delegated agent routing
 
 [`payspan-delegated-agent-routing-case-study.md`](payspan-delegated-agent-routing-case-study.md) records a PaySpan EGCA closeout where a Codex parent agent used selective model/reasoning delegation. The case study preserves repository-verifiable timing and validation evidence, distinguishes user-observed usage metrics from repository evidence, and records the durable-state closeout failure that required a later connector repair.

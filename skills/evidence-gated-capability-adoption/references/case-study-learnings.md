@@ -52,6 +52,8 @@ A follow-on experiment may begin before earlier work reaches production when dep
 
 ## Prototype-to-production evidence transfer
 
+A full sanitized public case study accompanies this distilled learning in the methodology repository's `examples/` directory.
+
 A production UI case exposed two classes of defect after static semantic/projection prototypes had already passed their experiments: real relationship cardinality invalidated an assumed grouping edge, and shared list/Markdown component defaults produced accessibility and responsive-identity defects that friendly fixtures did not exercise.
 
 The experiments were not wrong about the artifacts they tested. The failure was allowing prototype evidence to cross into a materially different production implementation without a linked productionization gate.
