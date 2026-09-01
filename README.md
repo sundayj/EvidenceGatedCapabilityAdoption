@@ -40,6 +40,14 @@ Partial EGCA adoption work must not be merged directly into `main`. The cumulati
 
 This isolation is deliberate: an experiment can validate one piece of an architecture without making that partial architecture a production baseline for unrelated work.
 
+## Evidence boundaries and productionization
+
+EGCA decisions apply only to the artifact, environment, data shapes/scale, integration path, and operational conditions actually tested. Adopting a static prototype, fixture, documentation contract, isolated module, or mocked integration does not automatically establish that a materially different live implementation is production-ready.
+
+Carry accepted evidence forward without repeating resolved discovery. When implementation introduces material untested variables, create a linked productionization experiment or adaptation that isolates the delta, exercises adversarial cases, and traces each accepted criterion to production code, automated evidence, and branch-matched runtime evidence.
+
+Track production readiness, merge, deployment, and operational validation separately. No state implies the next.
+
 ## Why this repository exists
 
 This repository has two goals:
@@ -185,6 +193,9 @@ The nested directory is the canonical Codex-installable package. The root copies
 - Candidates are possibilities, not commitments.
 - Investigate the source and current system before designing an experiment.
 - Every experiment must test a falsifiable hypothesis.
+- Every decision is bounded by the artifact, environment, data, integration, and operational conditions actually tested.
+- Materially different production implementations require a linked productionization experiment/adaptation rather than inheriting prototype evidence silently.
+- Accepted criteria must be traceable to production code and direct evidence before a program is production-ready.
 - Prefer the smallest bounded change that can produce meaningful evidence.
 - Stable experiment IDs are independent of execution priority.
 - One EGCA program uses one cumulative feature/integration branch.
@@ -200,11 +211,11 @@ The nested directory is the canonical Codex-installable package. The root copies
 
 ## Status
 
-**v0.2 — experimental, with multiple real-world validation runs completed.**
+**v0.3 — experimental, with multiple real-world validation runs completed.**
 
 The method originated while evaluating architectural capabilities in a private full-stack application. It has since been exercised on unrelated work, including a public two-repository Jekyll modernization using Google Sheets as durable state and a production workplace case using Git-tracked Markdown. Those runs validated the storage-agnostic design and also changed the methodology itself: they added clearer cumulative-integration rules, environment-blocked validation, experiment execution-log guidance, and a stronger burden of proof for new abstractions.
 
-Version 0.2 adds explicit methodology/package lifecycle governance: version metadata, changelog/migration notes, approval-gated self-update support for installed skills, and a roadmap toward plugin distribution and reproducible methodology pinning.
+Version 0.3 adds explicit evidence-applicability and productionization gates so prototype or fixture evidence cannot silently become production-readiness evidence. It also distinguishes production readiness, merge, deployment, and operational validation in the durable lifecycle.
 
 EGCA remains experimental because the goal is not to freeze the method after a few successful uses. Additional projects, failure cases, multi-agent workflows, team-scale use, and independent repeatable benchmarks should continue to refine the skill and its evidence gates.
 

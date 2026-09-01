@@ -1,5 +1,25 @@
 # EGCA Migration Notes
 
+## 0.2.x -> 0.3.0
+
+The decision vocabulary and stable experiment identities are unchanged. The new requirement makes the scope of each decision explicit and prevents prototype/fixture evidence from silently authorizing a materially different production implementation.
+
+### Historical decisions
+
+Do not rewrite them. Treat their evidence as valid within the artifact, environment, data, integration, and operational boundary that was actually tested.
+
+### Active programs
+
+For subsequent work:
+
+1. Add the tested artifact/environment and evidence applicability boundary to active experiment or decision records.
+2. Identify any material delta between adopted evidence and the intended production implementation.
+3. When a delta remains, create a linked productionization experiment/adaptation with a stable ID instead of reopening resolved discovery.
+4. Add criterion-to-production traceability and adversarial evidence before declaring the program production-ready.
+5. Track production readiness, merge, deployment, and operational validation separately.
+
+Existing trackers remain readable. The new schema fields are optional for interchange compatibility, but the methodology requires them prospectively when a material productionization delta exists.
+
 ## 0.1.x -> 0.2.0
 
 The methodology's experiment lifecycle and branch topology are backward-compatible. The main change is lifecycle/version governance for the EGCA skill itself.

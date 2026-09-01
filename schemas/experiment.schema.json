@@ -25,6 +25,31 @@
     "title": {"type": "string", "minLength": 1},
     "hypothesis": {"type": "string", "minLength": 1},
     "scope": {"type": "string", "minLength": 1},
+    "tested_artifact": {
+      "type": ["string", "null"]
+    },
+    "tested_environment": {
+      "type": ["string", "null"]
+    },
+    "evidence_applicability_boundary": {
+      "type": ["string", "null"]
+    },
+    "productionization_delta": {
+      "type": ["string", "null"]
+    },
+    "productionization_status": {
+      "type": ["string", "null"],
+      "enum": [
+        "Not required",
+        "Required",
+        "Planned",
+        "Running",
+        "Validated",
+        "Blocked",
+        "Deferred",
+        null
+      ]
+    },
     "out_of_scope": {
       "type": "array",
       "items": {"type": "string"},
@@ -60,6 +85,35 @@
     "repository_references": {
       "type": "array",
       "items": {"type": "string"},
+      "default": []
+    },
+    "adversarial_evidence": {
+      "type": "array",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "criterion_traceability": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["criterion"],
+        "properties": {
+          "criterion": {"type": "string", "minLength": 1},
+          "production_code_path": {"type": ["string", "null"]},
+          "automated_evidence": {
+            "type": "array",
+            "items": {"type": "string"},
+            "default": []
+          },
+          "branch_matched_runtime_evidence": {
+            "type": "array",
+            "items": {"type": "string"},
+            "default": []
+          },
+          "residual_boundary": {"type": ["string", "null"]}
+        },
+        "additionalProperties": true
+      },
       "default": []
     },
     "execution_telemetry": {

@@ -24,6 +24,10 @@
 
 Concise summary of the observations that matter to the decision.
 
+## Evidence applicability boundary
+
+Artifact, environment, data shapes/scale, integration path, and operational conditions actually supported by the evidence.
+
 ## Rationale
 
 Why does the evidence support this decision rather than the alternatives?
@@ -31,6 +35,12 @@ Why does the evidence support this decision rather than the alternatives?
 ## Architectural consequence
 
 What changes in the target system, if anything?
+
+## Productionization consequence
+
+`No material delta | Linked productionization experiment/adaptation required | Deferred with residual boundary`
+
+State what the decision authorizes as tested and what it does not establish about production readiness.
 
 ## Known tradeoffs / residual risks
 

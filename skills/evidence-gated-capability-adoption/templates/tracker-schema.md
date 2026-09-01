@@ -15,6 +15,8 @@ Recommended fields:
 - Baseline reference
 - EGCA feature/integration branch
 - Final integration PR
+- Program productionization status
+- Execution ledger reference
 - Last reviewed
 - Notes
 
@@ -57,6 +59,10 @@ The EGCA feature/integration branch is the cumulative candidate-release branch f
 | Title | Short experiment name |
 | Hypothesis | Falsifiable expected outcome |
 | Scope | Bounded implementation |
+| Tested artifact / environment | Prototype, fixture, isolated module, integrated branch, staged runtime, etc. |
+| Evidence applicability boundary | Data, scale, integrations, and conditions actually supported by evidence |
+| Productionization delta | Material difference from prior validated evidence, or None |
+| Productionization status | Not required / Required / Planned / Running / Validated / Blocked / Deferred |
 | Success evidence | What would support adoption |
 | Rejection evidence | What would falsify or weaken the hypothesis |
 | Depends on | Other experiment IDs or prerequisites |
@@ -66,10 +72,68 @@ The EGCA feature/integration branch is the cumulative candidate-release branch f
 | Experiment branch / PR | Repository evidence for this bounded experiment |
 | Integration result | Not integrated / Integrated to feature branch / Superseded by adaptation |
 | Validation | Tests, measurements, UX, runtime observations |
+| Adversarial evidence | Counterexamples for consequential assumptions and production boundaries |
+| Traceability reference | Criterion-to-production-code/test/runtime evidence mapping |
 | Observed evidence | What actually happened |
+| Executor | Human / ChatGPT / Codex / other agent / hybrid / unknown |
+| Execution start / end | Timing markers when known |
+| Elapsed time | Wall-clock, agent-reported, or repository-window duration with type identified |
+| Human intervention | Active time or intervention count when defensible |
+| Model / reasoning | Primary model/tier and reasoning level when exposed |
+| Agent runs / rework | Number of execution and corrective passes when known |
+| Delegation summary | Count or compact summary; detailed delegations belong in the execution ledger |
+| Usage / quota | Token/context/credit/allocation usage with the runtime's original unit |
+| Telemetry confidence | High / Medium / Low, with provenance when needed |
+| Execution ledger reference | Pointer to detailed forensic events when applicable |
 | Decision | Adopt / Adapt / Reject / Repeat |
 | Decision record | Reference to rationale |
 | Follow-up | Resulting work or next experiment |
+
+Execution telemetry is process evidence. It must not substitute for capability validation evidence. Unknown telemetry values should remain unknown rather than being guessed.
+
+An Adopt decision applies only within the recorded evidence applicability boundary. When the intended production implementation differs materially, create a linked productionization experiment or adaptation rather than silently treating the original decision as production-readiness evidence.
+
+## Productionization traceability
+
+Use a dedicated record or tracker view when an adopted experiment differs materially from the intended production implementation.
+
+| Field | Purpose |
+|---|---|
+| Source experiment / decision | Accepted evidence being carried forward |
+| Productionization experiment | Stable linked experiment/adaptation identity |
+| Delta | Untested production variables only |
+| Accepted criterion | Requirement inherited from the decision |
+| Production code path | Component/module/route that owns the behavior |
+| Adversarial fixture | Counterexample exercising a likely boundary failure |
+| Automated evidence | Direct assertion for the criterion |
+| Branch-matched runtime evidence | Browser/runtime/benchmark/operational proof before merge where feasible |
+| Residual boundary | Behavior that cannot safely be validated before production |
+| Status | Planned / Running / Validated / Blocked / Deferred |
+
+## Execution ledger
+
+Use a separate append-only execution ledger for non-trivial, delegated, or case-study-worthy programs. It may be a tracker tab, a Git-tracked Markdown/YAML/JSON file beside the tracker, or another durable backend.
+
+Recommended event fields:
+
+| Field | Purpose |
+|---|---|
+| Timestamp | When the event occurred |
+| Experiment / adaptation ID | Work item being executed |
+| Executor | Human or agent responsible |
+| Task / delegation | Bounded activity performed |
+| Model / tier | Model used when configurable or observable |
+| Reasoning level | Reasoning effort when configurable or observable |
+| Delegation rationale | Why this task was delegated |
+| Result | Outcome of the event |
+| Used? | Whether a delegated result contributed to final work |
+| Elapsed | Runtime or bounded event duration when known |
+| Human intervention | Whether a human decision/correction was required |
+| Repository reference | Branch, commit, PR, test, CI, or evidence document |
+| Measurement source | Runtime report, usage UI, commit chronology, chat timestamp, human recollection, etc. |
+| Confidence | High / Medium / Low |
+
+The ledger is evidence provenance, not a transcript. Do not store full chain-of-thought, full chat logs, secrets, or unnecessary private data.
 
 ## Decision log
 
@@ -97,9 +161,19 @@ Recommended fields or a dedicated final-gate record:
 - Feature-to-main PR
 - Integrated experiment/adaptation IDs
 - Full validation evidence
+- Criterion-to-production evidence traceability
+- Productionization delta resolution
+- Branch-matched runtime evidence
 - Baseline reconciliation result
 - Known residual risks
 - Final release decision
+- Production readiness status
+- Merge status
+- Deployment status
+- Operational-validation status
+- Program execution summary
+- Execution ledger reference
+- Known telemetry gaps
 
 The feature-to-main PR is a program-level artifact. It should not be used as the target for individual experiments.
 
@@ -114,3 +188,10 @@ The feature-to-main PR is a program-level artifact. It should not be used as the
 7. Experiment and adaptation branches are based on and merge into that feature branch, not directly into `main`.
 8. Rejected experiments are not merged into the feature branch merely to preserve history; preserve branch/PR/evidence references instead.
 9. The feature branch merges to `main` only after the program-level final evidence gate passes and host-repository approval requirements are satisfied.
+10. An experiment decision applies only within its recorded evidence boundary; prototype or fixture evidence does not silently become production-readiness evidence.
+11. Materially different production implementations require a linked productionization experiment/adaptation and criterion-to-evidence traceability.
+12. Keep production readiness, merge, deployment, and operational validation as distinct states.
+13. Record execution telemetry when it is available and materially useful, especially for delegated or autonomous agent runs.
+14. Distinguish agent runtime, wall-clock time, repository activity windows, and human estimates rather than collapsing them into one duration.
+15. Preserve the unit and provenance of token/context/credit/quota measurements.
+16. Keep detailed forensic execution events in the execution ledger; keep experiment rows concise.

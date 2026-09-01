@@ -25,7 +25,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-USER_AGENT = "egca-skill-updater/0.2.0"
+USER_AGENT = "egca-skill-updater/0.3.0"
 DEFAULT_REPOSITORY = "sundayj/EvidenceGatedCapabilityAdoption"
 DEFAULT_CHANNEL = "main"
 SKILL_PATH = "skills/evidence-gated-capability-adoption"

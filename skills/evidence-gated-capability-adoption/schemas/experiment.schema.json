@@ -25,6 +25,31 @@
     "title": {"type": "string", "minLength": 1},
     "hypothesis": {"type": "string", "minLength": 1},
     "scope": {"type": "string", "minLength": 1},
+    "tested_artifact": {
+      "type": ["string", "null"]
+    },
+    "tested_environment": {
+      "type": ["string", "null"]
+    },
+    "evidence_applicability_boundary": {
+      "type": ["string", "null"]
+    },
+    "productionization_delta": {
+      "type": ["string", "null"]
+    },
+    "productionization_status": {
+      "type": ["string", "null"],
+      "enum": [
+        "Not required",
+        "Required",
+        "Planned",
+        "Running",
+        "Validated",
+        "Blocked",
+        "Deferred",
+        null
+      ]
+    },
     "out_of_scope": {
       "type": "array",
       "items": {"type": "string"},
@@ -61,6 +86,105 @@
       "type": "array",
       "items": {"type": "string"},
       "default": []
+    },
+    "adversarial_evidence": {
+      "type": "array",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "criterion_traceability": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["criterion"],
+        "properties": {
+          "criterion": {"type": "string", "minLength": 1},
+          "production_code_path": {"type": ["string", "null"]},
+          "automated_evidence": {
+            "type": "array",
+            "items": {"type": "string"},
+            "default": []
+          },
+          "branch_matched_runtime_evidence": {
+            "type": "array",
+            "items": {"type": "string"},
+            "default": []
+          },
+          "residual_boundary": {"type": ["string", "null"]}
+        },
+        "additionalProperties": true
+      },
+      "default": []
+    },
+    "execution_telemetry": {
+      "type": "object",
+      "properties": {
+        "executor": {
+          "type": ["string", "null"]
+        },
+        "started_at": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "completed_at": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "wall_clock_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "agent_elapsed_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "human_active_minutes": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "human_interventions": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "primary_model": {
+          "type": ["string", "null"]
+        },
+        "reasoning_level": {
+          "type": ["string", "null"]
+        },
+        "agent_runs": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "rework_runs": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "delegation_count": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "usage": {
+          "type": ["object", "null"],
+          "properties": {
+            "value": {},
+            "unit": {"type": ["string", "null"]},
+            "source": {"type": ["string", "null"]}
+          },
+          "additionalProperties": true
+        },
+        "execution_ledger_reference": {
+          "type": ["string", "null"]
+        },
+        "measurement_confidence": {
+          "type": ["string", "null"],
+          "enum": ["High", "Medium", "Low", null]
+        },
+        "provenance": {
+          "type": ["string", "null"]
+        }
+      },
+      "additionalProperties": true
     },
     "observed_evidence": {
       "type": "array",
