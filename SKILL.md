@@ -174,6 +174,20 @@ Keep detailed forensic events in a separate execution ledger beside the tracker.
 
 See `references/execution-telemetry.md` and `templates/execution-ledger-template.md`.
 
+## Optional case-study contribution
+
+At program closeout, consider whether the run produced a reusable EGCA lesson supported by durable evidence. When it did, and the user has not already authorized, declined, or prohibited a case study, ask once whether they would like a sanitized case-study draft prepared for possible contribution to the EGCA project.
+
+Keep the invitation non-blocking and make clear that drafting does not authorize repository placement, publication, a push, or a pull request. Treat each of those as a separate permission under the host project's governance.
+
+Do not ask when the work was routine, duplicates an existing case study, lacks durable evidence, or cannot be sanitized without exposing private or materially reconstructable details. Never infer contribution permission from repository access, implementation approval, or a prior contribution.
+
+When inviting, briefly state the reusable lesson and use language such as:
+
+> This program produced a potentially reusable EGCA learning about [brief topic]. Would you like me to prepare a sanitized case-study draft for possible contribution to the EGCA project? Drafting would not authorize publication or opening a pull request.
+
+See `references/case-study-learnings.md` for sanitization and evidence-preservation guidance.
+
 ## Stable identity rule
 
 Experiment IDs identify historical experiments, not execution order.
@@ -265,6 +279,7 @@ When completing the program:
 5. record the program-level final evidence gate;
 6. report known telemetry gaps or reconstructed measurements separately from exact runtime metrics;
 7. report production readiness, merge, deployment, and operational validation as distinct states;
-8. only then prepare/merge the feature branch into `main` under host-repository governance.
+8. only then prepare/merge the feature branch into `main` under host-repository governance;
+9. when the run produced a defensible reusable lesson and the user's preference is not already known, make one optional, non-blocking case-study invitation after reporting completion.
 
 See `references/methodology.md`, `references/execution-telemetry.md`, and `templates/` for reusable records.
