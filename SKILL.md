@@ -1,17 +1,30 @@
 ---
 name: evidence-gated-capability-adoption
-description: Evaluate whether a substantial software capability, architectural pattern, dependency, integration, or design idea should be adopted using source investigation, falsifiable hypotheses, bounded experiments, explicit evidence gates, durable decision records, cumulative integration isolation, and lightweight execution telemetry. Use when a coding agent or engineer needs to research and experimentally validate a non-trivial capability before committing it to a production architecture; do not use for trivial fixes or already-approved implementation work.
+description: Evaluate and productionize substantial software capabilities, architectural patterns, dependencies, integrations, or design ideas using source investigation, falsifiable hypotheses, bounded experiments, explicit evidence gates, durable decision records, cumulative integration isolation, and lightweight execution telemetry. Use for non-trivial capability adoption and for materially different production implementations derived from adopted prototypes or experiments; do not use for trivial fixes or implementation already proven within the same artifact, environment, data, and integration boundary.
 ---
 
 # Evidence-Gated Capability Adoption
 
-Use this skill when evaluating whether a substantial capability, architectural pattern, dependency, integration, or design idea should be adopted into an existing software system.
+Use this skill when evaluating whether a substantial capability, architectural pattern, dependency, integration, or design idea should be adopted into an existing software system, and when carrying accepted experimental evidence into a materially different production implementation.
 
-Do **not** use the full process for trivial fixes, obvious dependency bumps, or work whose implementation is already approved and understood.
+Do **not** repeat discovery for trivial fixes, obvious dependency bumps, or implementation already proven within the same evidence boundary. Continue using the productionization and final-gate controls when approved implementation introduces material variables that the experiment did not test.
 
 ## Objective
 
 Turn promising ideas into evidence-backed architectural decisions without allowing research findings, agent suggestions, or source-project features to silently become implementation commitments.
+
+## Evidence scope and productionization invariant
+
+An EGCA decision applies only to the artifact, environment, data shapes and scale, integration path, and operational conditions actually tested.
+
+- Adopting a static prototype, fixture, documentation contract, isolated module, or mocked integration does **not** establish that a materially different live implementation is production-ready.
+- Carry accepted evidence forward; do not repeat resolved discovery. Isolate and test the **productionization delta**: the untested difference between the validated artifact and the intended production implementation.
+- When that delta introduces material uncertainty, create a linked productionization experiment or adaptation with a stable ID, explicit evidence boundary, adversarial cases, and its own evidence gate.
+- Material variables commonly include real data and relationship cardinality, shared-component defaults, authorization, failure and degraded states, responsive behavior, accessibility semantics, performance/scale, deployment topology, and operational recovery.
+- A green test suite proves only the behavior it exercises. Trace each accepted criterion to production code, adversarial automated evidence, and branch-matched runtime evidence when that behavior is testable before merge.
+- Post-merge or production validation confirms release behavior; it must not be the first evidence for behavior that could have been tested safely before merge.
+
+Do not mark a program production-ready while a required productionization delta is unvalidated, deferred without an explicit residual boundary, or represented only by prototype evidence.
 
 ## Required lifecycle
 
@@ -44,12 +57,16 @@ Turn promising ideas into evidence-backed architectural decisions without allowi
    - Do not turn an experiment into a disguised production rollout.
    - Assign a stable experiment ID that is never reused or renumbered.
    - Track dependencies and execution priority separately from the ID.
+   - Declare the tested artifact/environment and the evidence applicability boundary.
+   - If this is a productionization experiment, state the delta from the previously validated artifact rather than reopening resolved discovery.
 
 7. **Execute and validate**
    - Branch each experiment from the current EGCA feature branch, not from `main`.
    - Implement only the approved experiment scope.
    - Collect repository-grounded evidence: tests, benchmarks, runtime observations, UX findings, failure cases, maintenance cost, review findings, or other appropriate measurements.
    - An agent saying "this works" is not sufficient evidence.
+   - Include adversarial or counterexample cases for the assumptions most likely to fail at production boundaries.
+   - Maintain criterion-to-evidence traceability for materially different production implementations.
    - Record lightweight execution telemetry when available and materially useful: executor, timing, model/reasoning configuration, human intervention, agent runs/rework, delegations, and runtime-exposed usage or quota information.
    - For delegated or case-study-worthy runs, maintain a separate execution ledger rather than bloating the experiment record.
    - Do not invent unavailable execution measurements; record provenance and confidence for reconstructed values.
@@ -57,7 +74,7 @@ Turn promising ideas into evidence-backed architectural decisions without allowi
 8. **Apply the evidence gate**
    - Compare observed results with the explicit success/rejection criteria.
    - Classify the decision as exactly one of:
-     - **Adopt** — evidence supports incorporating the capability substantially as tested.
+     - **Adopt** — evidence supports incorporating the capability substantially as tested, within the recorded evidence boundary.
      - **Adapt** — evidence supports the principle but requires a materially different implementation or scope.
      - **Reject** — evidence does not justify adoption.
      - **Repeat** — evidence is insufficient or reveals a new question requiring another bounded experiment.
@@ -68,14 +85,18 @@ Turn promising ideas into evidence-backed architectural decisions without allowi
    - **Reject:** do not merge rejected implementation into the EGCA feature branch; preserve the experiment branch/PR and evidence as historical artifacts when useful.
    - **Repeat:** keep the feature branch stable and create the next bounded experiment from it after recording the new question.
    - Experimental branches are evidence-producing branches. The EGCA feature branch is the cumulative candidate release branch.
+   - If productionization differs materially from the tested artifact, keep it on a linked experiment/adaptation branch until its own gate passes.
 
 10. **Record the decision**
    - Preserve the experiment ID, hypothesis, evidence, decision, rationale, relevant references, and follow-up implications.
+   - Record the tested artifact/environment, evidence applicability boundary, productionization delta/status, and traceability references when applicable.
    - Preserve the compact execution summary and execution-ledger reference when telemetry was collected.
    - Update dependencies and next actions without rewriting historical IDs or decisions.
 
 11. **Finalize the EGCA program**
    - After all required experiments, adaptations, migrations, tests, documentation, and integration checks are complete, validate the EGCA feature branch as a whole against the current target baseline.
+   - Verify that accepted criteria are traced to the cumulative production implementation and that required productionization deltas have branch-matched evidence.
+   - Distinguish production readiness, merge, deployment, and operational validation; none is implied by the previous state.
    - Verify that the governing tracker, evidence documents, and execution ledger are internally consistent before declaring the program complete.
    - Only then open or finalize the single feature/integration PR from the EGCA feature branch to `main` (or the repository's equivalent release branch).
    - Merge the EGCA feature branch to `main` only after the program-level final evidence gate passes and host-repository approval requirements are satisfied.
@@ -91,6 +112,7 @@ main
         ├── experiment/e-001-...
         ├── experiment/e-002-...
         ├── adaptation/e-001-...
+        ├── productionization/e-002-...
         └── experiment/e-003-...
 ```
 
@@ -110,6 +132,9 @@ The storage backend may be Google Sheets, Git-tracked Markdown/YAML/JSON, an iss
 - observed evidence;
 - Adopt / Adapt / Reject / Repeat decision;
 - decision rationale and follow-up;
+- tested artifact/environment and evidence applicability boundary;
+- productionization delta and status when the intended implementation differs materially;
+- criterion-to-evidence traceability references;
 - EGCA feature/integration branch identity;
 - experiment/adaptation branch and PR references;
 - links or references to relevant repository evidence;
@@ -226,16 +251,20 @@ When completing an experiment:
 3. report the compact execution summary and delegation log when telemetry was collected;
 4. apply the evidence gate;
 5. record the decision;
-6. integrate Adopt/Adapt results into the EGCA feature branch only;
-7. update dependencies and recommend the next experiment only if warranted.
+6. state the evidence applicability boundary and whether a productionization delta remains;
+7. integrate Adopt/Adapt results into the EGCA feature branch only;
+8. create or update a linked productionization experiment when the intended production implementation differs materially;
+9. update dependencies and recommend the next experiment only if warranted.
 
 When completing the program:
 
 1. validate the cumulative EGCA feature branch;
 2. reconcile it with the current target baseline;
 3. reconcile the tracker and execution ledger with actual repository state;
-4. record the program-level final evidence gate;
-5. report known telemetry gaps or reconstructed measurements separately from exact runtime metrics;
-6. only then prepare/merge the feature branch into `main` under host-repository governance.
+4. verify criterion-to-production evidence traceability and close or explicitly defer every required productionization delta;
+5. record the program-level final evidence gate;
+6. report known telemetry gaps or reconstructed measurements separately from exact runtime metrics;
+7. report production readiness, merge, deployment, and operational validation as distinct states;
+8. only then prepare/merge the feature branch into `main` under host-repository governance.
 
 See `references/methodology.md`, `references/execution-telemetry.md`, and `templates/` for reusable records.

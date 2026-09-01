@@ -50,6 +50,25 @@ Experiments may expose defects in test harnesses, documentation, tooling, or wor
 
 A follow-on experiment may begin before earlier work reaches production when dependencies are explicit and experiment-specific evidence remains reconstructable. Preserve isolated experiment branches/commits and record the cumulative baseline used. Accepted/adapted work should converge on the program integration branch before the final program-level gate.
 
+## Prototype-to-production evidence transfer
+
+A production UI case exposed two classes of defect after static semantic/projection prototypes had already passed their experiments: real relationship cardinality invalidated an assumed grouping edge, and shared list/Markdown component defaults produced accessibility and responsive-identity defects that friendly fixtures did not exercise.
+
+The experiments were not wrong about the artifacts they tested. The failure was allowing prototype evidence to cross into a materially different production implementation without a linked productionization gate.
+
+The expected improvement is earlier discovery of integration-specific defects without forcing teams to repeat already-resolved architectural research. Requiring a full new EGCA program for every implementation was rejected as unnecessary ceremony; relying on post-merge production validation was rejected because safely testable defects should be found before release.
+
+Reusable conclusions:
+
+- Record the artifact/environment and evidence applicability boundary for every experiment.
+- Treat Adopt as "adopt as tested," not unrestricted production approval.
+- Carry accepted evidence forward, but isolate the productionization delta in a linked experiment/adaptation.
+- Trace accepted criteria to production code, adversarial fixtures, direct assertions, and branch-matched runtime evidence.
+- Include counterexamples for real input shapes, relationship cardinality, shared-component defaults, permissions, degraded states, responsive behavior, and accessibility when those variables are material.
+- Keep production readiness, merge, deployment, and operational validation as distinct facts.
+
+This clarification is backward-compatible with historical decisions: their evidence remains valid within the scope actually tested. Active programs should add applicability and productionization records prospectively rather than rewriting prior verdicts.
+
 ## Methodology feedback loop
 
 Real EGCA programs should be allowed to change EGCA itself:

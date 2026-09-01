@@ -29,6 +29,9 @@ Do not weaken these without an explicit methodology decision:
 - repository/observed behavior outranks stale tracker assumptions;
 - agent self-report is not sufficient evidence;
 - completed experiments end in Adopt, Adapt, Reject, or Repeat;
+- an experiment decision applies only within the artifact/environment and evidence boundary actually tested;
+- materially different production implementations require a linked productionization experiment/adaptation and criterion-to-evidence traceability;
+- production readiness, merge, deployment, and operational validation remain distinct states;
 - preserve negative results and decision rationale.
 
 ## Public-safety boundary
@@ -50,3 +53,5 @@ EGCA is itself experimental. Significant methodology changes should state:
 Prefer testing important methodology changes on a real use case before presenting them as stable.
 
 For the cumulative feature-branch rule, the motivating evidence is a real EGCA run where an experiment-level production adaptation was merged to the target repository's `main` before the overall capability program had finished. That exposed a gap between experiment-level adoption and program-level release readiness. The rule is backward-compatible with tracker content but existing active programs should add an explicit feature/integration branch field and route subsequent experiments through it.
+
+For the productionization rule, the motivating evidence is a production UI implementation whose static prototype validated the intended semantics but did not exercise real relationship cardinality or shared-component accessibility/responsive defaults. The clarification is backward-compatible: historical evidence remains valid within its tested boundary, while active programs should add linked productionization records prospectively when material deltas remain.
