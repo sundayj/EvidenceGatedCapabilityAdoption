@@ -1,5 +1,11 @@
 # EGCA Migration Notes
 
+## 0.3.0 -> 0.3.1
+
+No tracker, schema, experiment, or decision migration is required. Version 0.3.1 adds only an optional closeout invitation when a completed program produced a durable, reusable EGCA lesson.
+
+Drafting, repository placement, and publication or pull-request creation remain separate permissions. Existing programs do not need a new field or retrospective consent record.
+
 ## 0.2.x -> 0.3.0
 
 The decision vocabulary and stable experiment identities are unchanged. The new requirement makes the scope of each decision explicit and prevents prototype/fixture evidence from silently authorizing a materially different production implementation.

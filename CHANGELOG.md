@@ -2,6 +2,19 @@
 
 All notable changes to EGCA are recorded here. EGCA remains experimental; version numbers describe methodology/package compatibility and do not imply production maturity.
 
+## 0.3.1 - 2026-09-01
+
+### Added
+
+- An optional, one-time program-closeout invitation for evidence-backed, reusable case-study contributions.
+- Explicit separation between permission to draft, place in a repository, and publish or open a contribution pull request.
+- Public-case-study guidance that preserves evidence while removing private and materially reconstructable details.
+
+### Compatibility
+
+- No tracker, schema, experiment, or decision migration is required.
+- The invitation is non-blocking and omitted for routine, duplicate, insufficiently evidenced, or unsafely sanitizable work.
+
 ## 0.3.0 - 2026-09-01
 
 ### Added

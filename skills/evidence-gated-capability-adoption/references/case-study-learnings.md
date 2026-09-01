@@ -85,3 +85,29 @@ skill/methodology
 ```
 
 Changes to EGCA should still carry their own burden of proof. A single inconvenience need not become permanent ceremony; repeated or consequential findings should drive revisions.
+
+## Inviting case-study contributions
+
+Case-study invitations should help the methodology learn from real programs without turning closeout into another approval ceremony.
+
+Invite a contribution only when the run has durable evidence and a reusable lesson, such as meaningful negative evidence, a surprising boundary condition, a consequential Adapt/Reject/Repeat result, measurable execution evidence, or a methodology correction. Routine work and conclusions already represented by an existing case study do not need an invitation.
+
+The invitation should happen once, at the end of the final report, and must not block program completion. Omit it when the user has already authorized, declined, or prohibited a case study. State the specific lesson that may be useful rather than making a generic request for content.
+
+Keep permissions distinct:
+
+1. permission to prepare a sanitized draft;
+2. permission to place that draft in a repository;
+3. permission to push, publish, or open a contribution pull request.
+
+One permission does not imply the next. Repository access, implementation approval, or a previous contribution is not publication consent.
+
+A public case study should:
+
+- remain a derived artifact rather than replace or rewrite the original evidence;
+- remove private repository paths, organizations, people, tickets, credentials, private URLs, customer information, and materially reconstructable operational details;
+- preserve hypotheses, evidence boundaries, negative findings, decisions, rejected alternatives, and remaining uncertainty;
+- distinguish repository-verifiable evidence from participant recollection or inference;
+- receive a final privacy and accuracy review before publication.
+
+Do not invite or prepare a public contribution when meaningful sanitization would destroy the evidence or still expose sensitive context.
