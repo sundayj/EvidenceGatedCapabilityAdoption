@@ -14,6 +14,12 @@ This directory contains public-safe examples showing how EGCA behaves in practic
 
 It also defines a prospective comparison hypothesis between selective non-overlapping delegation and symmetric iterative adversarial review loops.
 
+### Native collaboration spine
+
+[`native-collaboration-spine-sanitized.md`](native-collaboration-spine-sanitized.md) records a sanitized native collaboration experiment that passed six pre-recorded gates for a PostgreSQL-backed room/thread spine while retaining a separate productionization delta for authenticated HTTP, per-recipient Redis/SSE delivery, reconnect behavior, and a real browser.
+
+It demonstrates how EGCA keeps a bounded `Adopt` decision distinct from production readiness, mainline merge, deployment, and operational validation.
+
 ## Planned examples
 
 ### Minimal synthetic example
