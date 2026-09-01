@@ -2,7 +2,7 @@
 
 ## 0.3.0 -> 0.3.1
 
-No tracker or decision migration is required. Version 0.3.1 adds only an optional closeout invitation when a completed program produced a durable, reusable EGCA lesson.
+No tracker, schema, experiment, or decision migration is required. Version 0.3.1 adds only an optional closeout invitation when a completed program produced a durable, reusable EGCA lesson.
 
 Drafting, repository placement, and publication or pull-request creation remain separate permissions. Existing programs do not need a new field or retrospective consent record.
 
