@@ -320,5 +320,5 @@ not a finished collaboration product.
 
 The structure of this derivative follows the public EGCA example case studies:
 
-- [Productionization-gap case study](https://github.com/sundayj/EvidenceGatedCapabilityAdoption/blob/73017facd7d52c4c57cb97cee96cac89e1f76b1b/examples/delivery-board-productionization-gap-case-study.md)
-- [Delegated-agent routing case study](https://github.com/sundayj/EvidenceGatedCapabilityAdoption/blob/73017facd7d52c4c57cb97cee96cac89e1f76b1b/examples/payspan-delegated-agent-routing-case-study.md)
+- [Productionization-gap case study](delivery-board-productionization-gap-case-study.md)
+- [Delegated-agent routing case study](payspan-delegated-agent-routing-case-study.md)
