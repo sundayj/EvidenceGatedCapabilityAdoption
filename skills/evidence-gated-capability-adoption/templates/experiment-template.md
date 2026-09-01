@@ -32,9 +32,13 @@ State the data shapes, scale, integrations, runtime conditions, and behaviors to
 
 ## Productionization delta
 
-`None | Required | Deferred`
+Describe only the unresolved difference between the tested artifact and the intended production implementation, or record `None`. Link the prior experiment/decision whose evidence is being carried forward.
 
-If the intended production implementation differs materially from the tested artifact, describe only the unresolved delta. Link the prior experiment/decision whose evidence is being carried forward.
+## Productionization status
+
+`Not required | Required | Planned | Running | Validated | Blocked | Deferred`
+
+Record the current state of the delta separately from its description. Link the productionization experiment/adaptation when one exists, and state the residual boundary for a deferred status.
 
 ## Out of scope
 
