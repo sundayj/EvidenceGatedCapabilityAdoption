@@ -57,47 +57,31 @@ This repository has two goals:
 
 The method is deliberately **storage-agnostic**. Google Sheets, Git-tracked files, issue trackers, or a database can all serve as durable EGCA state if they preserve the required concepts.
 
-## Install in Codex
+## Install in Codex (no Python required)
 
-The installable skill lives at:
+1. On the [GitHub repository page](https://github.com/sundayj/EvidenceGatedCapabilityAdoption), choose **Code → Download ZIP** and extract it. To pin a version, open the repository at the exact commit before downloading its archive and keep that commit SHA.
+2. Copy the **whole** `skills/evidence-gated-capability-adoption` folder, not the repository root or just `SKILL.md`, to one of these locations:
 
-```text
-skills/evidence-gated-capability-adoption
-```
+   | Scope | Destination folder |
+   | --- | --- |
+   | One repository | `<your-project>/.agents/skills/evidence-gated-capability-adoption/` |
+   | All your local projects | `~/.agents/skills/evidence-gated-capability-adoption/` (Windows: `%USERPROFILE%\.agents\skills\evidence-gated-capability-adoption\`) |
 
-The `SKILL.md` includes the YAML frontmatter Codex requires (`name` and `description`). Codex installs skills under `$CODEX_HOME/skills`, which defaults to `~/.codex/skills`.
+   Create the parent folders if needed. Inside the destination, `SKILL.md`, `manifest.json`, `templates/`, and `examples/` should be direct children. Use the filesystem that runs Codex. If the skill is already installed, don't install a second copy or overwrite it: use the governed update procedure below.
 
-### Recommended: ask Codex to install it
+3. Open Codex in your project, type `$evidence-gated-capability-adoption` and select it. Restart Codex if the skill isn't listed, then check the folder layout and scope. See [OpenAI's skill discovery documentation](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
 
-In Codex, ask:
+**Next:** [Run your first EGCA program and choose where to save it](skills/evidence-gated-capability-adoption/examples/first-program.md). It includes copyable prompts, example outputs, and a fresh-session persistence check.
 
-```text
-Use $skill-installer to install the skill from
-https://github.com/sundayj/EvidenceGatedCapabilityAdoption/tree/main/skills/evidence-gated-capability-adoption
-```
+## Update an existing installation
 
-Codex's built-in skill installer accepts GitHub repository paths and installs the selected directory into your Codex skills directory.
-
-After installation, restart Codex so it reloads the skill list.
-
-### Install with the built-in installer script
-
-If you are invoking Codex's bundled installer manually, use the repository plus the skill path:
-
-```bash
-python3 scripts/install-skill-from-github.py \
-  --repo sundayj/EvidenceGatedCapabilityAdoption \
-  --path skills/evidence-gated-capability-adoption
-```
-
-Run that command from the bundled `skill-installer` skill directory (the exact location is Codex-version dependent).
+The Python helper below is for checking or applying **updates**, not for installing or using the skill. Run it from the folder containing the currently installed `SKILL.md`. Never use the fresh-install steps to bypass an existing installation's update gate.
 
 ### Check for skill updates
 
 Beginning with EGCA 0.2.0, the installed package contains a read-only update checker:
 
 ```bash
-cd "${CODEX_HOME:-$HOME/.codex}/skills/evidence-gated-capability-adoption"
 python scripts/egca_update.py check
 ```
 
@@ -127,39 +111,7 @@ There is intentionally no evidence-free or silent self-update mode. Autonomous c
 
 ### Updating a pre-0.2 installation
 
-Older installations do not contain the updater. The built-in installer intentionally refuses to overwrite an existing skill directory, so remove the old copy first:
-
-```bash
-rm -rf "${CODEX_HOME:-$HOME/.codex}/skills/evidence-gated-capability-adoption"
-```
-
-Then reinstall from the canonical skill path above and restart/reload Codex.
-
-If you previously copied this repository root directly into `~/.codex/skills/evidence-gated-capability-adoption`, reinstall from the `skills/evidence-gated-capability-adoption` path so future packaging changes remain isolated from repository-level documentation.
-
-### Verify the installation
-
-Check that the installed skill starts with valid frontmatter:
-
-```bash
-sed -n '1,8p' "${CODEX_HOME:-$HOME/.codex}/skills/evidence-gated-capability-adoption/SKILL.md"
-```
-
-It should begin with:
-
-```yaml
----
-name: evidence-gated-capability-adoption
-description: ...
----
-```
-
-The installed package should also contain:
-
-```text
-manifest.json
-scripts/egca_update.py
-```
+Older copies lack the updater. Follow the currently installed methodology and host permissions to approve the exact replacement revision first. Back up the existing skill folder outside all scanned skill locations, then copy the approved package into the chosen location and verify discovery. Do not replace or reinterpret any active program's governing version.
 
 ## Distribution direction
 

@@ -1,6 +1,7 @@
 # Examples
 
 This directory contains public-safe examples showing how EGCA behaves in practice.
+Start with [your first EGCA program](../skills/evidence-gated-capability-adoption/examples/first-program.md) for a synthetic walkthrough, expected results, and storage examples.
 
 ## Available case studies
 

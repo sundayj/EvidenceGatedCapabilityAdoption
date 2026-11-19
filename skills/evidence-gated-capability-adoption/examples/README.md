@@ -1,6 +1,6 @@
 # Examples
 
-This directory will contain public-safe examples showing how EGCA behaves in practice.
+Start with [your first EGCA program](first-program.md) for a synthetic walkthrough, expected results, and storage examples.
 
 ## Planned examples
 
