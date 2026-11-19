@@ -16,6 +16,13 @@
 
 - `E-XXX`
 
+## Governing contract
+
+- EGCA methodology version / exact source revision:
+- governing policy references / exact revisions:
+- criteria revision:
+- transition-mandate reference, when applicable:
+
 ## Decision
 
 `Adopt | Adapt | Reject | Repeat`
@@ -23,6 +30,8 @@
 ## Evidence summary
 
 Concise summary of the observations that matter to the decision.
+
+Distinguish self-validation from independent evidence and explain any claimed independence in terms of provenance/failure domains.
 
 ## Evidence applicability boundary
 
@@ -49,6 +58,8 @@ What remains imperfect or uncertain after this decision?
 ## Follow-up
 
 Implementation work, a new experiment, monitoring, or no further action.
+
+If the resulting state transition is not admitted, record whether the next state is Adapt, Repeat, Reject, or an explicit `ExternalBlock`. Do not create a human approval step unless an external policy or system actually requires one.
 
 ## References
 

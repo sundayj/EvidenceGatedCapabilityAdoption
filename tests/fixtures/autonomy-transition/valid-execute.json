@@ -1,0 +1,110 @@
+{
+  "transition_id": "T-001",
+  "program_id": "EGCA-AUTONOMY-001",
+  "criteria_revision": "criteria-v1",
+  "subject": {
+    "id": "work-order-001",
+    "version": "revision-3",
+    "digest": "sha256:work-order-001-revision-3"
+  },
+  "object": {
+    "id": "work-order-001",
+    "type": "work_order",
+    "current_revision": 3,
+    "expected_revision": 3,
+    "next_revision": 4
+  },
+  "transition": {
+    "action": "execute",
+    "from_state": "scoped",
+    "to_state": "executing"
+  },
+  "governance": {
+    "current": {
+      "id": "egca",
+      "version": "0.3.1",
+      "digest": "sha256:egca-0.3.1"
+    },
+    "candidate": null,
+    "governing_sources": [
+      {
+        "id": "egca",
+        "version": "0.3.1",
+        "digest": "sha256:egca-0.3.1"
+      }
+    ]
+  },
+  "mandate": {
+    "synthesized_by": "planner-agent",
+    "objective_refs": [
+      {
+        "id": "request://feature-001",
+        "version": "revision-1",
+        "digest": "sha256:feature-request-revision-1"
+      }
+    ],
+    "policy_refs": [
+      {
+        "id": "policy://repository",
+        "version": "revision-7",
+        "digest": "sha256:repository-policy-revision-7"
+      }
+    ],
+    "authority": [
+      {
+        "id": "authority-001",
+        "source": {
+          "id": "policy://repository",
+          "version": "revision-7",
+          "digest": "sha256:repository-policy-revision-7"
+        },
+        "target": "work-order-001",
+        "actions": ["execute"],
+        "from_states": ["scoped"],
+        "to_states": ["executing"],
+        "valid_from": "2026-01-01T00:00:00Z",
+        "valid_until": "2027-01-01T00:00:00Z",
+        "enforcement": "internal",
+        "status": "active"
+      }
+    ]
+  },
+  "criteria": [
+    {
+      "id": "scope-and-necessity",
+      "minimum_supporting_evidence": 2,
+      "minimum_independent_domains": 1
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-self-check",
+      "criterion_ids": ["scope-and-necessity"],
+      "effect": "supports",
+      "verified": true,
+      "producer_id": "planner-agent",
+      "producer_kind": "agent",
+      "independence_domain": "execution-context-a",
+      "self_attestation": true,
+      "subject_revision": 3,
+      "criteria_revision": "criteria-v1",
+      "artifact_ref": "artifact://self-check",
+      "artifact_digest": "sha256:self-check"
+    },
+    {
+      "id": "evidence-independent-audit",
+      "criterion_ids": ["scope-and-necessity"],
+      "effect": "supports",
+      "verified": true,
+      "producer_id": "audit-agent",
+      "producer_kind": "agent",
+      "independence_domain": "audit-context-a",
+      "self_attestation": false,
+      "subject_revision": 3,
+      "criteria_revision": "criteria-v1",
+      "artifact_ref": "artifact://independent-audit",
+      "artifact_digest": "sha256:independent-audit"
+    }
+  ],
+  "findings": []
+}

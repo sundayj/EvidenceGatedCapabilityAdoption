@@ -6,6 +6,10 @@ Tracker: `<tracker path / URL>`
 
 Feature branch: `<branch>`
 
+Governing methodology / exact source revision: `<version and revision>`
+
+Current transition mandate / criteria revision: `<reference>`
+
 ## Measurement conventions
 
 - Wall-clock elapsed includes only a continuous run when known; otherwise label it as an upper bound.
@@ -45,9 +49,9 @@ Feature branch: `<branch>`
 
 ## Significant execution events
 
-| Timestamp | ID | Executor | Event | Result / evidence | Human intervention | Repository reference | Measurement source |
+| Timestamp | ID | Executor | Event | Result / evidence | Transition / mandate revision | Human intervention | Repository reference | Measurement source |
 |---|---|---|---|---|---|---|---|
-|  | E-XXX |  |  |  |  |  |  |
+|  | E-XXX |  |  |  |  |  |  |  |
 
 ## Forensic reconstruction notes
 

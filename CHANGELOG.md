@@ -2,6 +2,32 @@
 
 All notable changes to EGCA are recorded here. EGCA remains experimental; version numbers describe methodology/package compatibility and do not imply production maturity.
 
+## 0.4.0 - 2026-11-13
+
+### Added
+
+- An actor-neutral autonomous-governance invariant: humans, agents, services, and hybrid workflows may propose actions, while authoritative transitions are admitted by evidence rather than actor category.
+- Versioned transition mandates binding objective, policy, scoped authority, criteria, exact object revision, and applicable evidence at action time.
+- Explicit self-validation and independent-evidence provenance, with independence defined by failure-domain separation rather than identity labels or vote count.
+- Control-plane transition outcomes `Admit`, `Adapt`, `Repeat`, `Reject`, and `ExternalBlock`, while preserving `Adopt`, `Adapt`, `Reject`, and `Repeat` as completed experiment decisions.
+- Non-circular methodology evolution: the currently active version evaluates a candidate version, and a candidate cannot govern its own adoption.
+- Machine-readable methodology, mandate, criteria, provenance, transition-outcome, and external-block fields in the experiment interchange contract.
+
+### Changed
+
+- Replaced intrinsic human-approval requirements with evidence-derived, machine-verifiable transition requirements.
+- Defined the canonical Work Order repair loop: independent blocking findings return the unchanged scope for a fresh claim, while clean independent validation may support an exact object-scoped actor-neutral decision.
+- Allowed authenticated service controllers to author decisions when they hold the exact decision capability and remain separate from required independent validation.
+- Reframed skill update governance around exact admitted source revisions, current-methodology evidence gates, independent audit, rollback, and host authority. The existing updater argument name remains backward-compatible while implementation mechanics evolve separately.
+- Reframed merge, deployment, and other consequential actions as host-authority boundaries. A genuinely unavailable externally reserved authority produces `ExternalBlock`; it does not justify bypassing the host or inventing a routine human relay.
+
+### Compatibility
+
+- Historical experiment decisions and human approval records remain valid evidence within their recorded boundaries; they are not rewritten.
+- New schema fields are optional so 0.3.x interchange records remain readable. Active programs should pin their governing methodology and add mandates/provenance prospectively.
+- Host permissions, protected branches, deployment controls, and external legal or organizational authority remain unchanged.
+- This methodology release does not by itself implement autonomous updater mechanics, grant credentials, merge, deploy, publish, or establish production readiness.
+
 ## 0.3.1 - 2026-09-01
 
 ### Added

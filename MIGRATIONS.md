@@ -1,5 +1,36 @@
 # EGCA Migration Notes
 
+## 0.3.1 -> 0.4.0
+
+Version 0.4 changes lifecycle governance from actor-specific approval language to actor-neutral evidence-derived transitions. It does not broaden host permissions or reinterpret historical decisions.
+
+### Historical records
+
+Do not rewrite them. Existing human approvals, agent recommendations, and service attestations remain provenance records within the evidence boundary and policy that governed them. They are not automatically sufficient or insufficient merely because of actor type.
+
+### Active programs
+
+For subsequent transitions:
+
+1. Pin the governing EGCA version and exact source revision.
+2. Record the criteria revision and a transition mandate binding objective, policy, scoped authority, exact object revision, and requested state change.
+3. Distinguish self-validation from evidence produced in independent provenance/failure domains.
+4. Re-evaluate mandate, evidence, criteria, object revision, and authority immediately before each authoritative transition.
+5. Record `ExternalBlock` only when an external system or policy actually reserves the action for an unavailable principal. Missing evidence or internally derivable authority normally produces Adapt or Repeat.
+6. Keep experiment decisions (`Adopt`, `Adapt`, `Reject`, `Repeat`) distinct from control-plane transition outcomes (`Admit`, `Adapt`, `Repeat`, `Reject`, `ExternalBlock`).
+
+An active program may continue under 0.3.1 until it records an explicit methodology migration decision. A global skill update does not silently change the version governing existing records.
+
+### Methodology and skill updates
+
+The currently active methodology evaluates a candidate update; the candidate cannot define the criteria that admit itself. Bind evidence and authority to the exact candidate revision. If the source revision changes, return to Repeat and evaluate the new revision.
+
+The 0.4 methodology permits autonomous update application when the exact revision passes the current evidence gate, independent evidence and recovery criteria are satisfied, and the host grants the required action. Existing updater mechanics may still require an argument named `--approved-sha`; its name is retained for backward compatibility and does not make a human actor intrinsically required. Updater implementation and release validation remain separate productionization work.
+
+### External authority
+
+Protected branches, deployment platforms, credential issuers, organizational policy, and legal controls remain authoritative. When those controls reserve an action for an unavailable principal, record the precise block and continue all safe independent work. Do not widen credentials, impersonate a principal, or substitute evidence for authority the host has not granted.
+
 ## 0.3.0 -> 0.3.1
 
 No tracker, schema, experiment, or decision migration is required. Version 0.3.1 adds only an optional closeout invitation when a completed program produced a durable, reusable EGCA lesson.

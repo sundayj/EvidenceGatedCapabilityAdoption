@@ -1,6 +1,6 @@
 # EGCA Goal Prompt Template
 
-Use this template when handing an approved EGCA experiment program to a long-running coding agent.
+Use this template when handing an evidence-admitted EGCA experiment program to a long-running coding agent.
 
 ---
 
@@ -14,7 +14,8 @@ Tracker/backend:
 Read the tracker before making changes. Treat it as the source of truth for:
 
 - candidate/research state;
-- approved experiment scope;
+- evidence-admitted experiment scope;
+- governing methodology/policy versions, criteria revisions, and transition mandates;
 - experiment IDs and dependencies;
 - hypotheses and evidence criteria;
 - decision records;
@@ -29,7 +30,7 @@ Treat the live repository and observed runtime/test behavior as the source of tr
 
 ## Execution rules
 
-1. Work only on experiments marked approved/executable according to the tracker.
+1. Work only on experiments marked admitted/executable according to the tracker's governing evidence gate.
 2. Respect dependency ordering, but do not reinterpret stable experiment IDs as sequence numbers.
 3. Before each experiment, restate:
    - hypothesis;
@@ -54,7 +55,10 @@ Treat the live repository and observed runtime/test behavior as the source of tr
 15. Preserve historical IDs and previous decisions.
 16. When opening or updating a pull request, follow repository-specific conventions first. Unless the user or repository instructions expressly say otherwise, assign the PR to the current/authenticated GitHub user when safely resolvable and apply all clearly appropriate existing labels. Do not create labels merely to satisfy this rule unless requested. Record any inability to assign or label because of permissions, missing labels, or unresolved identity.
 17. Record the branch/PR reference in durable EGCA state.
-18. Stop before merge, deployment, destructive migration, publication, or any consequential action requiring human approval under repository instructions.
+18. For autonomous or consequential transitions, re-check the exact object revision, criteria revision, mandate, evidence provenance, and current host authority at action time.
+19. Treat actor type as provenance, not proof. Preserve self-validation separately and satisfy declared independent-evidence requirements with materially distinct provenance/failure domains.
+20. Do not add a human relay when machine-verifiable authority exists. Record unavailable externally enforced authority as `ExternalBlock`; use Adapt or Repeat when the missing information or authority can be derived autonomously.
+21. Never let a candidate methodology or policy govern its own adoption or retroactively reinterpret evidence collected under an earlier criteria revision.
 
 ## Repository workflow
 
@@ -80,7 +84,7 @@ Validation commands:
 
 The goal is complete only when:
 
-- every approved experiment in scope has either completed or has a clearly documented blocker;
+- every admitted experiment in scope has either completed or has a clearly documented blocker;
 - evidence is recorded for each completed experiment;
 - each completed experiment has an Adopt / Adapt / Reject / Repeat decision;
 - every decision states its evidence applicability boundary;

@@ -28,6 +28,11 @@ Do not weaken these without an explicit methodology decision:
 - the cumulative EGCA feature branch reaches `main` only after the program-level final evidence gate passes;
 - repository/observed behavior outranks stale tracker assumptions;
 - agent self-report is not sufficient evidence;
+- actor type alone neither admits nor rejects an action;
+- authoritative transitions require a versioned, machine-verifiable mandate binding objective, policy, scoped authority, criteria, object revision, and applicable evidence;
+- self-validation cannot satisfy declared independent-evidence requirements without provenance and failure-domain separation;
+- the currently active methodology governs a candidate methodology's adoption; a candidate cannot govern itself or retroactively reinterpret historical decisions;
+- an unavailable externally reserved authority is recorded as an explicit external block rather than bypassed or replaced by a synthetic human queue;
 - completed experiments end in Adopt, Adapt, Reject, or Repeat;
 - an experiment decision applies only within the artifact/environment and evidence boundary actually tested;
 - materially different production implementations require a linked productionization experiment/adaptation and criterion-to-evidence traceability;

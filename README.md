@@ -23,7 +23,7 @@ EGCA combines ideas from hypothesis-driven development, technical/architectural 
 
 ## Branching model
 
-One EGCA tracker/program owns one cumulative feature/integration branch. Create it from the approved repository baseline before experiments begin.
+One EGCA tracker/program owns one cumulative feature/integration branch. Create it from the authoritative repository baseline before experiments begin.
 
 Each experiment or production adaptation branches from that feature branch and merges back into it only when its evidence gate justifies integration. Rejected experiments remain historical evidence and are not merged into the cumulative branch.
 
@@ -36,7 +36,7 @@ main
         └── ...
 ```
 
-Partial EGCA adoption work must not be merged directly into `main`. The cumulative feature branch is merged into `main` only once the complete capability-adoption program is ready, the program-level final evidence gate passes, and the host repository's normal approval requirements are satisfied.
+Partial EGCA adoption work must not be merged directly into `main`. The cumulative feature branch is merged into `main` only once the complete capability-adoption program is ready, the program-level final evidence gate passes, and the host repository's current authority requirements are satisfied.
 
 This isolation is deliberate: an experiment can validate one piece of an architecture without making that partial architecture a production baseline for unrelated work.
 
@@ -103,17 +103,17 @@ python scripts/egca_update.py check
 
 The checker reports the installed version, available version, exact canonical Git commit, changelog, and migration notes. It **does not modify any files**.
 
-An agent may run this check and explain the proposed update. It must obtain explicit user approval for the exact commit shown before applying anything.
+An agent may run this check and explain the proposed update. Under the 0.4 methodology, applying an update requires an evidence-derived transition mandate for the exact proposed commit, evaluated under the currently installed methodology. The candidate version cannot govern its own adoption.
 
-After approval:
+When that exact revision is admitted and the host grants the required action:
 
 ```bash
-python scripts/egca_update.py update --approved-sha <exact-approved-sha>
+python scripts/egca_update.py update --approved-sha <exact-admitted-sha>
 ```
 
-The updater re-checks the canonical branch. If the branch moved after approval, it refuses the update and requires a fresh check and new approval. Before replacing package files it creates a sibling backup of the installed skill directory.
+The current experimental updater names this parameter `--approved-sha` for backward compatibility. The value is an exact admitted source revision, not evidence of a particular actor's approval. The updater re-checks the canonical branch. If the branch moved after the gate, it refuses the update and requires a fresh check and transition decision. Before replacing package files it creates a sibling backup of the installed skill directory.
 
-There is intentionally no unattended or silent self-update mode.
+There is intentionally no evidence-free or silent self-update mode. Autonomous checking and application are valid only when the versioned mandate, independent evidence, rollback conditions, current host authority, and exact-revision fence are machine-verifiable. The updater mechanics needed to enforce the 0.4 contract are tracked separately from this methodology candidate.
 
 ### Updating a pre-0.2 installation
 
@@ -203,19 +203,23 @@ The nested directory is the canonical Codex-installable package. The root copies
 - `main` remains free of partial EGCA adoption work until the program-level final evidence gate passes.
 - Repository reality and measured behavior outrank tracker assumptions.
 - An agent's assertion is not evidence.
+- Humans, agents, services, and hybrid workflows may propose work; actor type alone neither admits nor rejects it.
+- Authoritative lifecycle transitions require a machine-verifiable transition mandate binding objective, policy, authority, criteria, object revision, and applicable evidence.
+- Self-validation is useful evidence but cannot satisfy a declared independence requirement; independence is established by provenance and failure-domain separation, not actor labels or vote count.
+- A methodology or policy candidate cannot govern its own adoption. The current version evaluates the candidate, and historical decisions are not retroactively reinterpreted.
 - Every completed experiment ends with **Adopt**, **Adapt**, **Reject**, or **Repeat** and a durable rationale.
-- Skill updates may be checked read-only, but installed skill files may change only after explicit approval of the exact proposed source commit.
+- Skill updates may be checked read-only. Installed skill files may change only after the exact proposed source revision passes the current methodology's evidence gate and the host grants the required action.
 - Active EGCA programs preserve the methodology version governing historical decisions; global updates do not rewrite history.
 - When EGCA work produces a pull request, follow host-repository conventions and, unless expressly disabled, assign the current/authenticated GitHub user and apply clearly appropriate existing labels when possible.
-- Consequential merge/deployment actions remain subject to the host project's approval rules.
+- Consequential merge/deployment actions remain subject to the host project's authority rules. If an external host actually reserves an action for an unavailable principal, record `ExternalBlock`; do not invent a human queue or bypass the host.
 
 ## Status
 
-**v0.3 — experimental, with multiple real-world validation runs completed.**
+**v0.4 candidate — experimental, with multiple real-world validation runs completed.**
 
 The method originated while evaluating architectural capabilities in a private full-stack application. It has since been exercised on unrelated work, including a public two-repository Jekyll modernization using Google Sheets as durable state and a production workplace case using Git-tracked Markdown. Those runs validated the storage-agnostic design and also changed the methodology itself: they added clearer cumulative-integration rules, environment-blocked validation, experiment execution-log guidance, and a stronger burden of proof for new abstractions.
 
-Version 0.3 adds explicit evidence-applicability and productionization gates so prototype or fixture evidence cannot silently become production-readiness evidence. It also distinguishes production readiness, merge, deployment, and operational validation in the durable lifecycle.
+Version 0.3 added explicit evidence-applicability and productionization gates so prototype or fixture evidence cannot silently become production-readiness evidence. Version 0.4 makes lifecycle governance actor-neutral: capability remains open, while authoritative commitments are constrained by versioned transition mandates, independent evidence, exact-revision fencing, non-circular policy evolution, and explicit external-host authority blocks. It also distinguishes production readiness, merge, deployment, and operational validation in the durable lifecycle.
 
 EGCA remains experimental because the goal is not to freeze the method after a few successful uses. Additional projects, failure cases, multi-agent workflows, team-scale use, and independent repeatable benchmarks should continue to refine the skill and its evidence gates.
 
