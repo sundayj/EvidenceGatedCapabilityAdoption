@@ -9,11 +9,13 @@ Recommended fields:
 - Program name
 - Target repository/system
 - Objective
+- Governing EGCA methodology version and exact source revision
 - Current phase
-- Owner
+- Accountable principal(s) and provenance
 - State backend
 - Baseline reference
 - EGCA feature/integration branch
+- Current transition-mandate and criteria revisions, when applicable
 - Final integration PR
 - Program productionization status
 - Execution ledger reference
@@ -59,6 +61,9 @@ The EGCA feature/integration branch is the cumulative candidate-release branch f
 | Title | Short experiment name |
 | Hypothesis | Falsifiable expected outcome |
 | Scope | Bounded implementation |
+| Governing methodology / policy | Exact versions and source revisions used by the gate |
+| Criteria revision | Immutable criteria identity for the evidence being collected |
+| Transition mandate | Objective, object revision, action, scope, authority, expiry, stop/rollback, and provenance reference |
 | Tested artifact / environment | Prototype, fixture, isolated module, integrated branch, staged runtime, etc. |
 | Evidence applicability boundary | Data, scale, integrations, and conditions actually supported by evidence |
 | Productionization delta | Material difference from prior validated evidence, or None |
@@ -67,12 +72,14 @@ The EGCA feature/integration branch is the cumulative candidate-release branch f
 | Rejection evidence | What would falsify or weaken the hypothesis |
 | Depends on | Other experiment IDs or prerequisites |
 | Execution priority | Scheduling independent of ID |
-| Status | Planned / Approved / Running / Validating / Complete / Blocked |
+| Status | Planned / Admitted / Running / Validating / Complete / Blocked (`Approved` remains a readable legacy value) |
 | Base feature branch | EGCA cumulative integration branch used as experiment baseline |
 | Experiment branch / PR | Repository evidence for this bounded experiment |
 | Integration result | Not integrated / Integrated to feature branch / Superseded by adaptation |
 | Validation | Tests, measurements, UX, runtime observations |
 | Adversarial evidence | Counterexamples for consequential assumptions and production boundaries |
+| Self-validation provenance | Executor-produced evidence retained as self-validation |
+| Independent-evidence provenance | Materially distinct sources/failure domains satisfying declared independence requirements |
 | Traceability reference | Criterion-to-production-code/test/runtime evidence mapping |
 | Observed evidence | What actually happened |
 | Executor | Human / ChatGPT / Codex / other agent / hybrid / unknown |
@@ -90,6 +97,8 @@ The EGCA feature/integration branch is the cumulative candidate-release branch f
 | Follow-up | Resulting work or next experiment |
 
 Execution telemetry is process evidence. It must not substitute for capability validation evidence. Unknown telemetry values should remain unknown rather than being guessed.
+
+`Admit`, `ExternalBlock`, and other transition-admission outcomes are control-plane states, not replacements for the experiment decision vocabulary. A completed experiment still ends in Adopt, Adapt, Reject, or Repeat.
 
 An Adopt decision applies only within the recorded evidence applicability boundary. When the intended production implementation differs materially, create a linked productionization experiment or adaptation rather than silently treating the original decision as production-readiness evidence.
 
@@ -144,6 +153,8 @@ The ledger is evidence provenance, not a transcript. Do not store full chain-of-
 | Candidate ID | Related capability |
 | Experiment ID(s) | Evidence-producing experiments |
 | Decision | Adopt / Adapt / Reject / Repeat |
+| Governing methodology / criteria revision | Exact contract used to evaluate the evidence |
+| Transition outcome | Admission state for the resulting authoritative change, if separate from the experiment decision |
 | Evidence summary | Relevant observations |
 | Rationale | Why the gate resulted in this decision |
 | Architectural consequence | What changes, if anything |
@@ -172,6 +183,9 @@ Recommended fields or a dedicated final-gate record:
 - Deployment status
 - Operational-validation status
 - Program execution summary
+- Governing methodology and policy versions
+- Final transition mandate and criteria revisions
+- External-authority blocks, if any
 - Execution ledger reference
 - Known telemetry gaps
 
@@ -180,14 +194,14 @@ The feature-to-main PR is a program-level artifact. It should not be used as the
 ## Rules
 
 1. Never use row order as experiment identity.
-2. Never silently convert candidate status into approved implementation.
+2. Never silently convert candidate status into committed implementation.
 3. Keep repository state out of the tracker when a link/reference is sufficient.
 4. Preserve negative experiments; failed hypotheses are useful evidence.
 5. Re-check repository reality before executing stale planned work.
 6. One EGCA tracker/program uses one cumulative feature/integration branch.
 7. Experiment and adaptation branches are based on and merge into that feature branch, not directly into `main`.
 8. Rejected experiments are not merged into the feature branch merely to preserve history; preserve branch/PR/evidence references instead.
-9. The feature branch merges to `main` only after the program-level final evidence gate passes and host-repository approval requirements are satisfied.
+9. The feature branch merges to `main` only after the program-level final evidence gate passes and the host repository's current authority requirements are satisfied.
 10. An experiment decision applies only within its recorded evidence boundary; prototype or fixture evidence does not silently become production-readiness evidence.
 11. Materially different production implementations require a linked productionization experiment/adaptation and criterion-to-evidence traceability.
 12. Keep production readiness, merge, deployment, and operational validation as distinct states.
@@ -195,3 +209,7 @@ The feature-to-main PR is a program-level artifact. It should not be used as the
 14. Distinguish agent runtime, wall-clock time, repository activity windows, and human estimates rather than collapsing them into one duration.
 15. Preserve the unit and provenance of token/context/credit/quota measurements.
 16. Keep detailed forensic execution events in the execution ledger; keep experiment rows concise.
+17. Actor type is provenance, not authority. Do not require or fabricate a human identity when policy and evidence provide machine-verifiable authority.
+18. A candidate methodology or policy must not govern its own adoption, and amended criteria must not reinterpret prior evidence retroactively.
+19. Self-validation may support a criterion but cannot satisfy an independent-evidence requirement by itself.
+20. Record unavailable externally enforced authority as `ExternalBlock`; use Adapt or Repeat for evidence or authority the system can derive itself.

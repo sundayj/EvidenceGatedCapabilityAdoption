@@ -15,18 +15,56 @@ Software teams and coding agents are both prone to collapsing distinct states:
 - interesting idea;
 - researched idea;
 - plausible hypothesis;
-- approved experiment;
+- evidence-admitted experiment;
 - successful experiment;
 - adopted architecture;
 - completed implementation.
 
 EGCA keeps those states separate so enthusiasm, authority, or implementation momentum cannot substitute for evidence.
 
+It does not follow that a human must sit between those states. A human who only relays an agent-produced audit adds neither evidence nor authority. EGCA therefore treats actor type as provenance, not as a privileged decision class.
+
 That separation continues after an experiment succeeds. A decision to adopt a prototype or isolated contract is not evidence that every materially different production implementation of that idea is ready.
 
 A recurring benefit in agent-assisted development is **architecture deflation**. Generative agents can make new models, services, registries, engines, and abstractions inexpensive to produce, while the maintenance cost of those abstractions remains. EGCA therefore places a burden of proof on new complexity: inspect and test existing primitives before introducing new architecture.
 
 This is not a bias toward minimal code at all costs. Repeated evidence may justify a small shared abstraction. The goal is for complexity to be earned by observed need rather than by speculative design.
+
+## Open capability and gated commitment
+
+EGCA permits humans, agents, services, and hybrid teams to analyze, propose, execute, validate, amend, recommend, integrate, release, and observe outcomes. The control point is the authoritative transition, not whether an actor is allowed to reason or suggest a next step.
+
+An evidence gate should answer:
+
+1. What exact object and revision would change?
+2. Which objective and governing policies apply?
+3. Which methodology and criteria revisions govern the decision?
+4. Does the requested action fall within current, scoped authority?
+5. Which evidence supports or contradicts each criterion, and where did it come from?
+6. Are required independent observations materially independent, or merely correlated repetitions?
+7. What stop, expiry, containment, and rollback conditions apply?
+
+Record those answers in a versioned **transition mandate** for consequential or autonomous work. A mandate is derived authority, not a role promotion: it applies to the exact object, action, revision, scope, and validity period recorded. Repository access, model capability, a prior successful action, or an agent's confidence does not silently broaden it.
+
+Self-validation remains valuable and should be preserved. When a criterion requires independence, self-validation cannot satisfy that requirement by itself. Multiple agents do not create independence merely by agreeing; record materially distinct provenance or failure domains.
+
+Use these transition outcomes separately from the experiment decision vocabulary:
+
+- **Admit** — the exact transition may commit under the current mandate;
+- **Adapt** — a remediable finding requires a changed transition or scope;
+- **Repeat** — evidence, revision, or derived authority is incomplete or stale;
+- **Reject** — contrary evidence or invalid/circular governance defeats the transition;
+- **ExternalBlock** — an external system or binding policy withholds required authority.
+
+Completed experiments still end in exactly Adopt, Adapt, Reject, or Repeat. `ExternalBlock` describes operational authority, not an experiment verdict.
+
+For an assigned Work Order, the executor records evidence and a non-authoritative recommendation before independent validation. A blocking independent finding may return the same Work Order for a fresh claim only when its admitted scope, source binding, mandate, and validator separation remain unchanged; the returned revision invalidates the prior recommendation. A clean independent result may support the exact object-scoped controller in recording the experiment decision. The decision author may be an authenticated human or service principal: actor type is provenance, while current capability, object revision, mandate, and independent evidence determine authority.
+
+## Non-circular policy evolution
+
+EGCA may govern changes to itself, but a candidate methodology or policy cannot define the test used to admit that same candidate. Pin the current governing methodology and criteria before collecting decision evidence. Version N evaluates N+1; evidence collected under one criteria revision is not retroactively reinterpreted under another.
+
+An autonomous updater therefore needs the same evidence boundaries as any productionization path: authenticated exact source, declared migration delta, isolated compatibility/regression evidence, independent audit when required, atomic activation, retained prior version, and tested rollback conditions. A new version existing is not evidence that it belongs in the active environment.
 
 ## Evidence applicability
 
@@ -75,7 +113,7 @@ Post-merge and production validation are confirmatory release evidence. They sho
 
 EGCA also separates **validated experiment work** from the repository's **production baseline**.
 
-A single EGCA program should create one long-lived feature/integration branch from the approved baseline before experiments begin. All experiment and adaptation branches are based on that cumulative branch and, when their evidence gates justify integration, merge back into it. They do not merge directly into `main`.
+A single EGCA program should create one long-lived feature/integration branch from the authoritative baseline before experiments begin. All experiment and adaptation branches are based on that cumulative branch and, when their evidence gates justify integration, merge back into it. They do not merge directly into `main`.
 
 ```text
 main
@@ -129,6 +167,8 @@ Use evidence appropriate to the capability: tests, performance measurements, UX 
 
 Include adversarial cases for important assumptions and production boundaries. Maintain criterion-to-evidence traceability when the intended implementation differs materially from the experiment artifact.
 
+For autonomous or consequential transitions, also preserve the governing methodology/policy versions, criteria revision, transition-mandate reference, object revision, actor provenance, and independence domains. This makes an autonomous result auditable without making an actor's identity proof of correctness.
+
 Keep a lightweight execution log for meaningful experiment events: commands or test suites run, observations, environment blockers, unexpected findings, and relevant commits/PRs. The log is evidence provenance, not a transcript.
 
 Distinguish **validation blocked by environment** from **hypothesis unsupported**. A missing dependency, unavailable service, CI outage, inaccessible fixture, or other environmental constraint means the intended evidence was not collected; it does not count as negative evidence against the hypothesis.
@@ -140,6 +180,8 @@ Incidental process, tooling, test-harness, or documentation improvements discove
 Question: **Does the observed evidence justify adoption?**
 
 Compare actual results with the predeclared success and rejection criteria.
+
+Before committing the resulting state transition, verify that its object revision, mandate, authority, and criteria revision are still current. A stale gate result yields Repeat rather than silently applying to a changed object.
 
 ### 7. Decision
 
@@ -204,6 +246,12 @@ EGCA state is not the same as agent memory or runtime checkpointing.
 - **Runtime checkpoints** answer: where did a long-running workflow stop and how can it resume?
 
 A system may use all four.
+
+## Authority versus approval
+
+EGCA has no intrinsic human-approval requirement. It respects the host's actual governance and credentials at action time. If the host exposes machine-verifiable authority and the evidence gate passes, adding a human relay is unnecessary. If the host or another external system reserves an action to a person or unavailable principal, record the exact missing authority as `ExternalBlock`; do not bypass it, fabricate a human identity, or misclassify it as evidence against the capability.
+
+Missing information that the agent system can derive is not an external block. It should trigger Adapt or Repeat so the system can gather evidence, resynthesize the mandate, or narrow the action autonomously.
 
 ## Storage adapters
 

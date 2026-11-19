@@ -7,11 +7,28 @@ description: Evaluate and productionize substantial software capabilities, archi
 
 Use this skill when evaluating whether a substantial capability, architectural pattern, dependency, integration, or design idea should be adopted into an existing software system, and when carrying accepted experimental evidence into a materially different production implementation.
 
-Do **not** repeat discovery for trivial fixes, obvious dependency bumps, or implementation already proven within the same evidence boundary. Continue using the productionization and final-gate controls when approved implementation introduces material variables that the experiment did not test.
+Do **not** repeat discovery for trivial fixes, obvious dependency bumps, or implementation already proven within the same evidence boundary. Continue using the productionization and final-gate controls when admitted implementation introduces material variables that the experiment did not test.
 
 ## Objective
 
 Turn promising ideas into evidence-backed architectural decisions without allowing research findings, agent suggestions, or source-project features to silently become implementation commitments.
+
+## Autonomous-governance invariant
+
+EGCA is actor-neutral. Humans, agents, services, and hybrid teams may all investigate, propose, execute, validate, recommend, amend, integrate, release, and observe outcomes. A role label must not suppress reasoning or make an assertion authoritative.
+
+Use **open capability, gated commitment**:
+
+- any authorized actor may propose the next lifecycle action;
+- an authoritative state transition occurs only when a versioned evidence gate admits the exact action for the exact object revision;
+- self-validation is useful evidence with provenance, but it does not satisfy an independent-evidence requirement by itself;
+- independence is established by evidence provenance and materially distinct failure domains, not by counting agents or votes;
+- missing derived evidence or authority produces Adapt or Repeat; contrary evidence produces Reject; an authority enforced by an unavailable external system is recorded as `ExternalBlock`, not converted into a synthetic request for human approval;
+- a human is required only when an external policy or system actually reserves authority to one, not merely because EGCA traditionally placed a person between two agent steps.
+
+For consequential or autonomous work, derive a versioned **transition mandate** from authoritative sources. Preserve at least the objective, governing methodology and policy versions, object and criteria revisions, requested action and scope, authority references, evidence requirements, expiry or re-evaluation conditions, stop/rollback conditions, and provenance of the synthesizer and audits.
+
+A candidate methodology or policy may never govern its own adoption. Version N evaluates N+1 under version N's pinned criteria. Do not apply amended criteria retroactively to evidence collected under an earlier revision.
 
 ## Evidence scope and productionization invariant
 
@@ -34,13 +51,13 @@ Do not mark a program production-ready while a required productionization delta 
    - Treat live code and measured behavior as authoritative over stale tracker notes.
 
 2. **Create the EGCA feature branch**
-   - Create one long-lived feature/integration branch for the entire EGCA program from the repository's approved baseline branch, normally `main`.
+   - Create one long-lived feature/integration branch for the entire EGCA program from the repository's authoritative baseline branch, normally `main`.
    - Record this branch in durable EGCA state before executing experiments.
    - Treat this branch as the integration target for all accepted/adapted experiment work in the program.
    - Do **not** merge experiment or intermediate EGCA work directly into `main`.
 
 3. **Capture candidate**
-   - Record the capability as a candidate, not approved work.
+   - Record the capability as a candidate, not committed work.
    - State the problem/opportunity and why the candidate may help.
 
 4. **Investigate**
@@ -62,10 +79,14 @@ Do not mark a program production-ready while a required productionization delta 
 
 7. **Execute and validate**
    - Branch each experiment from the current EGCA feature branch, not from `main`.
-   - Implement only the approved experiment scope.
+   - Implement only the experiment scope admitted by the governing evidence gate.
+   - Bind autonomous execution to the exact transition mandate and record revision; never infer broad authority from repository access, agent identity, or a prior action.
    - Collect repository-grounded evidence: tests, benchmarks, runtime observations, UX findings, failure cases, maintenance cost, review findings, or other appropriate measurements.
    - An agent saying "this works" is not sufficient evidence.
    - Include adversarial or counterexample cases for the assumptions most likely to fail at production boundaries.
+   - Preserve self-validation and independent validation separately. When independence is required, record why the evidence sources do not share the same material failure domain.
+   - For assigned Work Orders, keep execution and validation identities distinct. The executor claims, starts, records evidence/proposals, and submits a non-authoritative Adopt/Adapt/Reject/Repeat recommendation. Independent review either validates that exact submitted revision or returns it for another fresh claim under the unchanged scope and mandate.
+   - Treat execution claims as bounded leases, not durable authority. Long-running executors renew before expiry with the same authenticated principal and claim token, carry the returned revision into the next transition, and fail closed when a lease expires or renewal is refused.
    - Maintain criterion-to-evidence traceability for materially different production implementations.
    - Record lightweight execution telemetry when available and materially useful: executor, timing, model/reasoning configuration, human intervention, agent runs/rework, delegations, and runtime-exposed usage or quota information.
    - For delegated or case-study-worthy runs, maintain a separate execution ledger rather than bloating the experiment record.
@@ -73,6 +94,7 @@ Do not mark a program production-ready while a required productionization delta 
 
 8. **Apply the evidence gate**
    - Compare observed results with the explicit success/rejection criteria.
+   - Verify the governing methodology/policy version, criteria revision, object revision, transition mandate, and evidence provenance before committing an authoritative transition.
    - Classify the decision as exactly one of:
      - **Adopt** — evidence supports incorporating the capability substantially as tested, within the recorded evidence boundary.
      - **Adapt** — evidence supports the principle but requires a materially different implementation or scope.
@@ -89,6 +111,7 @@ Do not mark a program production-ready while a required productionization delta 
 
 10. **Record the decision**
    - Preserve the experiment ID, hypothesis, evidence, decision, rationale, relevant references, and follow-up implications.
+   - A decision author may be a human or an authenticated service controller. Actor type is provenance, not approval; the author must hold the exact object-scoped decision capability and must not substitute for required independent validation.
    - Record the tested artifact/environment, evidence applicability boundary, productionization delta/status, and traceability references when applicable.
    - Preserve the compact execution summary and execution-ledger reference when telemetry was collected.
    - Update dependencies and next actions without rewriting historical IDs or decisions.
@@ -99,7 +122,7 @@ Do not mark a program production-ready while a required productionization delta 
    - Distinguish production readiness, merge, deployment, and operational validation; none is implied by the previous state.
    - Verify that the governing tracker, evidence documents, and execution ledger are internally consistent before declaring the program complete.
    - Only then open or finalize the single feature/integration PR from the EGCA feature branch to `main` (or the repository's equivalent release branch).
-   - Merge the EGCA feature branch to `main` only after the program-level final evidence gate passes and host-repository approval requirements are satisfied.
+   - Merge the EGCA feature branch to `main` only after the program-level final evidence gate passes and the host repository's current authority requirements are satisfied.
    - Until that point, `main` must remain free of partial EGCA adoption work.
 
 ## Branch topology invariant
@@ -138,6 +161,9 @@ The storage backend may be Google Sheets, Git-tracked Markdown/YAML/JSON, an iss
 - EGCA feature/integration branch identity;
 - experiment/adaptation branch and PR references;
 - links or references to relevant repository evidence;
+- governing EGCA methodology version and exact source revision;
+- transition-mandate reference, criteria revision, and authority provenance for autonomous or consequential transitions;
+- self-validation and independent-evidence provenance when independence is required;
 - a compact execution summary when meaningful execution telemetry is available;
 - an execution-ledger reference for delegated, autonomous, or case-study-worthy runs.
 
@@ -210,28 +236,33 @@ If assignment or labeling cannot be completed because of permissions, unavailabl
 
 ## Skill lifecycle and updates
 
-The installable EGCA package may check its canonical source for updates. This is a read-only capability and does not authorize self-modification.
+The installable EGCA package may check its canonical source for updates. Discovery alone does not justify changing the active methodology.
 
 When `manifest.json` and `scripts/egca_update.py` are present beside this installed skill package:
 
 1. Run `python scripts/egca_update.py check` to retrieve the canonical branch head, remote version, changelog, and migration notes.
 2. If no newer version exists, report that result and stop.
-3. If an update exists, show the user at least:
+3. Treat an update as an EGCA candidate governed by the currently installed methodology version. Record at least:
    - installed version;
    - proposed version;
    - exact source commit SHA;
    - relevant changelog/migration information;
-   - any known compatibility or active-program implications.
-4. Obtain **explicit user approval for that exact source commit** before changing installed skill files.
-5. Only after that approval, run `python scripts/egca_update.py update --approved-sha <sha>` using the exact SHA the user approved.
-6. If the updater reports that the canonical branch moved, do not substitute the new SHA automatically. Run `check` again, show the new proposal, and obtain fresh approval.
-7. Report the result and backup location after a successful update.
+   - compatibility and active-program implications;
+   - authenticity/integrity evidence;
+   - isolated migration and regression evidence;
+   - independent audit evidence where required;
+   - backup, activation, and rollback plan.
+4. Apply an evidence gate under the current pinned methodology. The proposed version and its candidate policy must not participate as governing sources in that gate.
+5. When the gate result is Adopt or an accepted Adapt and the host environment grants the exact update action, apply only the exact admitted source revision. No human relay is intrinsically required.
+6. If the source revision moves, evidence or compatibility changes, or the mandate expires, Repeat the gate for the new exact revision; never substitute it silently.
+7. Activate atomically where possible, retain the prior installation, run post-activation validation, and roll back automatically when declared rollback conditions occur.
+8. Record the decision, activation result, active methodology version, and backup/rollback reference.
 
 Never:
 
-- update silently, in the background, on a timer, or merely because a newer version exists;
-- infer update approval from approval of unrelated work;
-- reuse approval for a different commit or materially different version;
+- update merely because a newer version exists or a source branch moved;
+- treat a scheduled/background check as evidence that the update should be adopted;
+- reuse an admitted transition for a different commit, package, criteria revision, or materially different version;
 - bypass host/workspace permission or approval controls;
 - rewrite the governing methodology of an active EGCA program merely because the globally installed skill changed.
 
@@ -239,9 +270,11 @@ For an active EGCA program, preserve the methodology version that governed histo
 
 If this repository's root compatibility copy of `SKILL.md` is being used directly and the packaged updater files are not adjacent to it, treat Git/repository update mechanisms as authoritative rather than attempting to mutate the repository through the installed-skill updater.
 
-## Approval boundary
+## Authority boundary
 
-EGCA does not override the host repository's governance. Stop before merge, deployment, destructive migration, publication, or other consequential actions whenever the project's own instructions require human approval.
+EGCA does not override the host repository's governance or manufacture credentials. Before merge, deployment, destructive migration, publication, or another consequential action, resolve the host's current policy and authority requirements into the transition mandate and re-evaluate them at action time.
+
+When the host supplies machine-verifiable authority and the evidence gate passes, EGCA does not add a separate human approval step. When an external system or binding policy reserves the action to a person or unavailable principal, record `ExternalBlock` with the exact missing authority and continue every independent action that remains in scope. Never bypass or silently broaden the external control.
 
 Even when intermediate merges are permitted, merge them only into the EGCA feature branch. A merge to `main` is a program-level release action, not an experiment-level action.
 

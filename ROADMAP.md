@@ -9,8 +9,9 @@ This roadmap tracks methodology, packaging, distribution, and validation work th
 - [x] Add explicit skill version metadata.
 - [x] Add a changelog and migration notes.
 - [x] Allow an installed EGCA skill to check the canonical repository for a newer version.
-- [x] Allow an agent to apply an update only after presenting the proposed version/commit and obtaining explicit user approval.
-- [x] Refuse silent, background, or self-triggered mutation of the installed skill.
+- [x] Define exact-revision evidence admission under the currently active methodology; candidate methodology cannot govern itself.
+- [x] Refuse evidence-free or silent mutation of the installed skill.
+- [ ] Productionize autonomous update application with authenticated provenance, independent audit, atomic activation, rollback, and host-authority checks.
 - [ ] Publish immutable tagged releases and signed/checksummed release artifacts; move the updater from the experimental `main` channel to release artifacts once that release process exists.
 - [ ] Add CI that verifies the root compatibility copy and installable skill package stay synchronized where their contracts overlap.
 
@@ -38,9 +39,10 @@ GitHub repository (canonical source)
 
 ### Reproducible active programs
 
-- [ ] Add an `egca_methodology_version` field to the canonical durable-state schema/templates.
-- [ ] Define upgrade semantics for an active EGCA program: a global skill update must not silently rewrite the methodology version governing an existing program.
-- [ ] Record methodology migrations as explicit program decisions when a material EGCA upgrade is adopted mid-program.
+- [x] Add governing methodology version/source fields to the canonical durable-state schema/templates.
+- [x] Define upgrade semantics for an active EGCA program: a global skill update must not silently rewrite the methodology version governing an existing program.
+- [x] Require methodology migrations to be explicit program decisions when a material EGCA upgrade is adopted mid-program.
+- [ ] Validate these fields and migration semantics in at least one complete multi-agent productionization run.
 
 ## EGCA governing EGCA
 

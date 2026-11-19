@@ -22,6 +22,18 @@ State a falsifiable prediction about what should improve in the target system.
 
 Describe the smallest bounded repository change capable of answering the question.
 
+## Governing methodology and policy
+
+- EGCA methodology version / exact source revision:
+- governing policy references / exact revisions:
+- criteria revision:
+
+The candidate methodology or policy being tested must not appear as a governing source for its own admission.
+
+## Transition mandate
+
+For autonomous or consequential work, reference the versioned mandate that binds the objective, object/revision, requested action, scope, authority, evidence requirements, validity period, and stop/rollback conditions. Record the synthesizer and audit provenance without treating actor type as proof.
+
 ## Tested artifact and environment
 
 State what is actually being tested: prototype, fixture, isolated module, integrated branch implementation, staged runtime, or another concrete artifact/environment.
@@ -76,6 +88,8 @@ How will evidence be collected?
 
 List the assumptions and production boundaries most likely to fail, with at least one meaningful counterexample for each consequential assumption.
 
+State which evidence is self-validation and which evidence must be independent. Define independence by materially distinct provenance/failure domains rather than agent count.
+
 ### Criterion-to-evidence traceability
 
 | Accepted criterion | Production code path | Automated evidence | Branch-matched runtime evidence |
@@ -120,6 +134,8 @@ Record what actually happened, including negative and unexpected findings.
 `Adopt | Adapt | Reject | Repeat`
 
 The decision applies only within the recorded evidence applicability boundary.
+
+If the resulting authoritative transition is evaluated separately, record `Admit | Adapt | Reject | Repeat | ExternalBlock` and the exact object/mandate revision. `ExternalBlock` is an authority state, not the experiment decision.
 
 ## Rationale
 

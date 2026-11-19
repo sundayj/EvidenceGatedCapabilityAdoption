@@ -1,0 +1,64 @@
+{
+  "subject_revision": 4,
+  "criteria_revision": "criteria-v2",
+  "policy": {
+    "minimum_supporting_attestations": 3,
+    "minimum_independent_clusters": 2,
+    "minimum_model_families": 2,
+    "require_adversarial": true,
+    "executor_ids": ["builder-agent"]
+  },
+  "attestations": [
+    {
+      "id": "self-check",
+      "producer_id": "builder-agent",
+      "execution_id": "execution-builder",
+      "model_family": "family-a",
+      "prompt_digest": "sha256:prompt-builder",
+      "context_digest": "sha256:context-builder",
+      "evidence_bundle_digest": "sha256:bundle-builder",
+      "artifact_digest": "sha256:report-builder",
+      "subject_revision": 4,
+      "criteria_revision": "criteria-v2",
+      "stance": "supports",
+      "verified": true,
+      "self_attestation": true,
+      "adversarial": false,
+      "findings": []
+    },
+    {
+      "id": "audit-a",
+      "producer_id": "review-agent-a",
+      "execution_id": "execution-a",
+      "model_family": "family-a",
+      "prompt_digest": "sha256:prompt-a",
+      "context_digest": "sha256:context-a",
+      "evidence_bundle_digest": "sha256:bundle-a",
+      "artifact_digest": "sha256:report-a",
+      "subject_revision": 4,
+      "criteria_revision": "criteria-v2",
+      "stance": "supports",
+      "verified": true,
+      "self_attestation": false,
+      "adversarial": true,
+      "findings": []
+    },
+    {
+      "id": "audit-b",
+      "producer_id": "review-agent-b",
+      "execution_id": "execution-b",
+      "model_family": "family-b",
+      "prompt_digest": "sha256:prompt-b",
+      "context_digest": "sha256:context-b",
+      "evidence_bundle_digest": "sha256:bundle-b",
+      "artifact_digest": "sha256:report-b",
+      "subject_revision": 4,
+      "criteria_revision": "criteria-v2",
+      "stance": "supports",
+      "verified": true,
+      "self_attestation": false,
+      "adversarial": false,
+      "findings": []
+    }
+  ]
+}
