@@ -1,4 +1,5 @@
 import importlib.util
+import io
 import json
 import stat
 import sys
@@ -105,6 +106,36 @@ class EgcaUpdateTests(unittest.TestCase):
         self.assertEqual(info.local_version, "0.3.1")
         self.assertEqual(info.remote_version, "0.4.0")
         self.assertTrue(info.update_available)
+
+    def test_public_cli_guidance_matches_installed_version_fence(self):
+        bootstrap = self.info()
+        governed = updater.UpdateInfo(
+            **{
+                **bootstrap.__dict__,
+                "local_version": "0.4.0",
+                "remote_version": "0.4.1",
+            }
+        )
+
+        with mock.patch("sys.stdout", new_callable=io.StringIO) as output:
+            updater._print_check(bootstrap)
+        self.assertIn(f"--approved-sha {bootstrap.remote_sha}", output.getvalue())
+        self.assertNotIn("--admission admission.json", output.getvalue())
+
+        with mock.patch("sys.stdout", new_callable=io.StringIO) as output:
+            updater._print_check(governed)
+        self.assertIn("--admission admission.json", output.getvalue())
+        self.assertNotIn("--approved-sha", output.getvalue())
+
+        readme = (Path(__file__).parents[1] / "README.md").read_text(encoding="utf-8")
+        self.assertIn("0.3.1 -> 0.4.0 bootstrap", readme)
+        self.assertIn("subsequent updates governed by installed EGCA 0.4.0", readme)
+
+    def test_user_agent_uses_installed_package_version(self):
+        with mock.patch.object(
+            updater, "_local_manifest", return_value={"version": "9.8.7"}
+        ):
+            self.assertEqual(updater._user_agent(), "egca-skill-updater/9.8.7")
 
     def test_moved_candidate_is_rejected(self):
         admission = self.admission()

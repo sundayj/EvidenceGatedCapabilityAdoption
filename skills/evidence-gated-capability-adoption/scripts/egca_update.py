@@ -32,7 +32,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-USER_AGENT = "egca-skill-updater/0.3.1"
+USER_AGENT_PRODUCT = "egca-skill-updater"
 DEFAULT_REPOSITORY = "sundayj/EvidenceGatedCapabilityAdoption"
 DEFAULT_CHANNEL = "main"
 SKILL_PATH = "skills/evidence-gated-capability-adoption"
@@ -98,14 +98,21 @@ def _file_digest(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _user_agent() -> str:
+    version = str(_local_manifest().get("version", "")).strip()
+    if not version:
+        raise RuntimeError("Local manifest does not declare an EGCA version")
+    return f"{USER_AGENT_PRODUCT}/{version}"
+
+
 def _request_text(url: str) -> str:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    request = urllib.request.Request(url, headers={"User-Agent": _user_agent()})
     with urllib.request.urlopen(request, timeout=20) as response:
         return response.read().decode("utf-8")
 
 
 def _request_bytes(url: str) -> bytes:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    request = urllib.request.Request(url, headers={"User-Agent": _user_agent()})
     with urllib.request.urlopen(request, timeout=60) as response:
         return response.read()
 
@@ -198,8 +205,18 @@ def _print_check(info: UpdateInfo) -> None:
     print(info.migrations.rstrip())
     if info.update_available:
         print("\nNo files were changed.")
-        print("Create an admission artifact from the candidate JSON below, then run:")
-        print("  python scripts/egca_update.py update --admission admission.json")
+        if _semver(info.local_version) < AUTONOMOUS_GOVERNANCE_MIN_VERSION:
+            print(
+                "After the exact bootstrap commit is approved under the "
+                "installed methodology, run:"
+            )
+            print(
+                "  python scripts/egca_update.py update "
+                f"--approved-sha {info.remote_sha}"
+            )
+        else:
+            print("Create an admission artifact from the candidate JSON below, then run:")
+            print("  python scripts/egca_update.py update --admission admission.json")
         print(
             json.dumps(
                 {

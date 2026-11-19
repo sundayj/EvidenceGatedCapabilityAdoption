@@ -103,17 +103,27 @@ python scripts/egca_update.py check
 
 The checker reports the installed version, available version, exact canonical Git commit, changelog, and migration notes. It **does not modify any files**.
 
-An agent may run this check and explain the proposed update. Under the 0.4 methodology, applying an update requires an evidence-derived transition mandate for the exact proposed commit, evaluated under the currently installed methodology. The candidate version cannot govern its own adoption.
+An agent may run this check and explain the proposed update. The currently installed methodology governs the update; the candidate version cannot govern its own adoption.
 
-When that exact revision is admitted and the host grants the required action:
+For the one-time **0.3.1 -> 0.4.0 bootstrap**, 0.3.1 remains the governing methodology. After the exact candidate commit has received the explicit approval required by 0.3.1 and the host grants the update action, run:
 
 ```bash
-python scripts/egca_update.py update --approved-sha <exact-admitted-sha>
+python scripts/egca_update.py update --approved-sha <exact-approved-sha>
 ```
 
-The current experimental updater names this parameter `--approved-sha` for backward compatibility. The value is an exact admitted source revision, not evidence of a particular actor's approval. The updater re-checks the canonical branch. If the branch moved after the gate, it refuses the update and requires a fresh check and transition decision. Before replacing package files it creates a sibling backup of the installed skill directory.
+`--approved-sha` is a bootstrap-only compatibility path. The updater accepts it only while the installed version predates 0.4.0 and refuses it once autonomous update governance is active.
 
-There is intentionally no evidence-free or silent self-update mode. Autonomous checking and application are valid only when the versioned mandate, independent evidence, rollback conditions, current host authority, and exact-revision fence are machine-verifiable. The updater mechanics needed to enforce the 0.4 contract are tracked separately from this methodology candidate.
+For **subsequent updates governed by installed EGCA 0.4.0 or newer**, an external evidence gate must emit an admission bundle for the candidate digest reported by `check`. Run:
+
+```bash
+python scripts/egca_update.py update --admission admission.json
+```
+
+The updater locally integrity-checks that bundle: schema and criteria revisions, an `Adopt` decision, the installed governing version, the exact candidate digest, preservation of active-program version pins, a scoped admitting-controller claim, and exactly one passing artifact for each required evidence kind (`compatibility_review`, `migration_review`, `isolated_validation`, `rollback_validation`, and `independent_audit`). Every artifact is path-confined, SHA-256 verified, and bound to the candidate; the independent audit must use a different producer and provenance domain from the admitting controller. The external gate remains responsible for authenticating the claimed principals before writing the bundle.
+
+Both update paths re-check the canonical branch immediately before download. If it moved after approval or admission, the updater refuses the update and requires a fresh check and transition decision. Before replacing package files it creates a sibling backup of the installed skill directory.
+
+There is intentionally no evidence-free or silent self-update mode. Autonomous checking and application are valid only when the versioned mandate, independent evidence, rollback conditions, current host authority, and exact-revision fence are machine-verifiable.
 
 ### Updating a pre-0.2 installation
 

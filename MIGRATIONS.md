@@ -25,7 +25,9 @@ An active program may continue under 0.3.1 until it records an explicit methodol
 
 The currently active methodology evaluates a candidate update; the candidate cannot define the criteria that admit itself. Bind evidence and authority to the exact candidate revision. If the source revision changes, return to Repeat and evaluate the new revision.
 
-The 0.4 methodology permits autonomous update application when the exact revision passes the current evidence gate, independent evidence and recovery criteria are satisfied, and the host grants the required action. Existing updater mechanics may still require an argument named `--approved-sha`; its name is retained for backward compatibility and does not make a human actor intrinsically required. Updater implementation and release validation remain separate productionization work.
+Bootstrap from installed 0.3.1 to candidate 0.4.0 under the 0.3.1 rules. After the exact candidate commit receives the explicit approval required by that installed version, use `update --approved-sha <exact-approved-sha>`. The updater accepts this compatibility path only while the installed version predates 0.4.0; the candidate 0.4 rules do not certify their own installation.
+
+Once 0.4.0 or newer is installed, subsequent updates require `update --admission admission.json`; `--approved-sha` is refused. The external evidence gate authenticates the admitting and evidence-producing principals, then writes a bundle bound to the installed governing version and exact candidate digest. The updater locally verifies the bundle's schema/criteria revisions, `Adopt` decision, active-program pin policy, scoped controller claim, five required passing evidence artifacts and independent-audit producer/domain separation. It also verifies each confined artifact digest and rechecks the canonical branch immediately before download.
 
 ### External authority
 
