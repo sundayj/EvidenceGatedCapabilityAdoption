@@ -13,6 +13,25 @@ Do **not** repeat discovery for trivial fixes, obvious dependency bumps, or impl
 
 Turn promising ideas into evidence-backed architectural decisions without allowing research findings, agent suggestions, or source-project features to silently become implementation commitments.
 
+## Start or resume from the conversation
+
+When asked whether EGCA fits, use the discussion so far and the repository
+baseline to explain the material uncertainty and the smallest useful way to
+resolve it. For straightforward, already-proven work, recommend the ordinary
+delivery path. A fit assessment alone does not create a program.
+
+When asked to start or continue, locate and reuse the canonical tracker. Infer
+its location from project conventions or choose a sensible authorized default
+if no tracker exists. Ask only if a meaningful destination or access choice
+remains unresolved. On resume, resolve the exact governing version and
+source revision from that tracker. If unavailable, continue only read-only
+discovery and report the missing revision; do not silently use the newly
+installed copy. After an authorized start, use the tracker to choose and
+sequence the next bounded experiment, capture evidence, and update the next
+action. Do not ask the user to supply experiment IDs, shell commands, or
+routine tactical decisions. Escalate a genuine blocker, a reserved approval,
+or a material decision the evidence and scope cannot resolve.
+
 ## Autonomous-governance invariant
 
 EGCA is actor-neutral. Humans, agents, services, and hybrid teams may all investigate, propose, execute, validate, recommend, amend, integrate, release, and observe outcomes. A role label must not suppress reasoning or make an assertion authoritative.
@@ -238,9 +257,17 @@ If assignment or labeling cannot be completed because of permissions, unavailabl
 
 The installable EGCA package may check its canonical source for updates. Discovery alone does not justify changing the active methodology.
 
-When `manifest.json` and `scripts/egca_update.py` are present beside this installed skill package:
+Use the project's normal Git or skill-manager workflow for distribution
+and rollback. Read-only discovery and isolated candidate staging can precede
+admission. Activate only the exact revision admitted under the currently
+installed policy and host authority. Distribution tooling never
+substitutes for required evidence verification. Existing installations
+governed by an earlier update contract must still follow that contract.
 
-1. Run `python scripts/egca_update.py check` to retrieve the canonical branch head, remote version, changelog, and migration notes.
+1. Read the current and proposed exact source revisions, versions, changelog,
+   and migration notes using the host's read-only tools. The legacy
+   `python scripts/egca_update.py check` is optional for discovery when
+   those facts can be established through the normal distribution channel.
 2. If no newer version exists, report that result and stop.
 3. Treat an update as an EGCA candidate governed by the currently installed methodology version. Record at least:
    - installed version;

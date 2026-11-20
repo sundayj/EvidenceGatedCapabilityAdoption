@@ -89,21 +89,52 @@ Replace `REF` with the full reviewed commit SHA, then verify the skill in Codex 
 
 ## Update an existing installation
 
-The currently supported **automated, governed updater still requires Python**. Python is not needed for fresh installation or normal skill use. A package manager or file copy can transfer a folder, but neither verifies EGCA's update admission. Do not use `gh skill update`, a Git pull, or a fresh copy to bypass that gate. A Python-free equivalent is tracked in the [distribution roadmap](ROADMAP.md#versioned-skill-releases).
+### Update through the tool that manages your copy (no Python)
 
-Run the current helper from the folder containing the installed `SKILL.md`.
+- **Project-local, Git-managed skill:** Use an ordinary dependency-bump PR.
+  Review the upstream changelog and migration notes and resolve the candidate
+  to an exact upstream commit. Retain the old source SHA, stage the complete
+  folder from that exact candidate, and review the package diff. Record the
+  new source SHA alongside the replacement in the consuming repository.
+  Review, test discovery in a disposable checkout, and activate through the
+  consuming project's normal merge/release controls. Rolling back that Git
+  change restores both the previous package and its recorded source.
+- **User-scoped ZIP or Git copy:** Stage the exact new copy outside skill
+  discovery folders. Keep a backup of the old folder there as well. Once the
+  exact replacement is admitted and authorized, close Codex, replace the
+  complete folder at its existing path, and restart to verify discovery. If
+  verification fails, restore the backup and confirm discovery again. Don't
+  leave two installed copies of the same name.
+- **GitHub CLI-managed copy:** [`gh skill update --dry-run`](https://cli.github.com/manual/gh_skill_update)
+  can preview changes for CLI-managed skills. A pinned copy intentionally skips
+  ordinary updates. Stage and review the exact new revision, then re-pin to
+  that revision using the [installer's `--pin` and `--force` options](https://cli.github.com/manual/gh_skill_install)
+  only after the existing copy is backed up and the replacement is admitted.
+  Keep the original project/user scope. Do not unpin to accept whatever
+  happens to be latest.
 
-### Check for skill updates
+These are standard **package replacement** paths, not an EGCA admission
+verifier. When a governing EGCA policy applies, use that currently active
+policy and the host's required authority and evidence before replacement.
+Neither a tool refresh nor a human clicking Update is evidence of admission.
+If the installed policy requires its legacy updater to validate/apply the
+admission, follow that policy; these instructions do not retrofit a new
+governance path into old installations.
 
-Beginning with EGCA 0.2.0, the installed package contains a read-only update checker:
+For an active program, keep its exact governing revision available and pinned:
+prefer a project-owned copy, or change the distribution copy only after
+confirming that the agent can still load that program's recorded revision.
+If that revision cannot be recovered, pause changes to that program rather
+than using the newest skill. Upgrading the installed package does not
+migrate a program.
 
-```bash
-python scripts/egca_update.py check
-```
+### Legacy EGCA-managed automated updates
 
-The checker reports the installed version, available version, exact canonical Git commit, changelog, and migration notes. It **does not modify any files**.
-
-An agent may run this check and explain the proposed update. The currently installed methodology governs the update; the candidate version cannot govern its own adoption.
+The original automated checker and admission validator remain available for
+existing workflows. **This separate path** still requires Python. From the
+folder containing the installed `SKILL.md`, run
+`python scripts/egca_update.py check` for a read-only report of the available
+version, exact canonical commit, changelog and migration notes.
 
 For the one-time **0.3.1 -> 0.4.0 bootstrap**, 0.3.1 remains the governing methodology. After the exact candidate commit has received the explicit approval required by 0.3.1 and the host grants the update action, run:
 
