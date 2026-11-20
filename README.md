@@ -59,8 +59,14 @@ The method is deliberately **storage-agnostic**. Google Sheets, Git-tracked file
 
 ## Install in Codex (no Python required)
 
-1. On the [GitHub repository page](https://github.com/sundayj/EvidenceGatedCapabilityAdoption), choose **Code → Download ZIP** and extract it. To pin a version, open the repository at the exact commit before downloading its archive and keep that commit SHA.
-2. Copy the **whole** `skills/evidence-gated-capability-adoption` folder, not the repository root or just `SKILL.md`, to one of these locations:
+Choose one way to get the skill folder. None requires Python:
+
+- **GitHub ZIP:** On the [repository page](https://github.com/sundayj/EvidenceGatedCapabilityAdoption), choose **Code → Download ZIP** and extract it. To pin the source, open the exact commit before downloading its archive and keep its SHA.
+- **Git:** Clone the repository with `git clone https://github.com/sundayj/EvidenceGatedCapabilityAdoption.git`. To pin the source, check out the exact reviewed SHA in that clone before copying the folder. Keep the checkout's SHA with the installation.
+
+Then:
+
+1. Copy the **whole** `skills/evidence-gated-capability-adoption` folder, not the repository root or just `SKILL.md`, to one of these locations:
 
    | Scope | Destination folder |
    | --- | --- |
@@ -69,13 +75,23 @@ The method is deliberately **storage-agnostic**. Google Sheets, Git-tracked file
 
    Create the parent folders if needed. Inside the destination, `SKILL.md`, `manifest.json`, `templates/`, and `examples/` should be direct children. Use the filesystem that runs Codex. If the skill is already installed, don't install a second copy or overwrite it: use the governed update procedure below.
 
-3. Open Codex in your project, type `$evidence-gated-capability-adoption` and select it. Restart Codex if the skill isn't listed, then check the folder layout and scope. See [OpenAI's skill discovery documentation](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
+2. Open Codex in your project, type `$evidence-gated-capability-adoption` and select it. Restart Codex if the skill isn't listed, then check the folder layout and scope. See [OpenAI's skill discovery documentation](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
+
+**Already using a recent GitHub CLI?** [`gh skill install`](https://cli.github.com/manual/gh_skill_install) is another **fresh-install** option (preview). Run it from the target project:
+
+```bash
+gh skill install sundayj/EvidenceGatedCapabilityAdoption skills/evidence-gated-capability-adoption --agent codex --scope project --pin REF
+```
+
+Replace `REF` with the full reviewed commit SHA, then verify the skill in Codex as above. This command manages the copy itself; do not also copy the folder. If your GitHub CLI does not offer `gh skill`, use ZIP or Git. Do not run a general-purpose skill update against an active EGCA installation as a substitute for EGCA's update gate.
 
 **Next:** [Run your first EGCA program and choose where to save it](skills/evidence-gated-capability-adoption/examples/first-program.md). It includes copyable prompts, example outputs, and a fresh-session persistence check.
 
 ## Update an existing installation
 
-The Python helper below is for checking or applying **updates**, not for installing or using the skill. Run it from the folder containing the currently installed `SKILL.md`. Never use the fresh-install steps to bypass an existing installation's update gate.
+The currently supported **automated, governed updater still requires Python**. Python is not needed for fresh installation or normal skill use. A package manager or file copy can transfer a folder, but neither verifies EGCA's update admission. Do not use `gh skill update`, a Git pull, or a fresh copy to bypass that gate. A Python-free equivalent is tracked in the [distribution roadmap](ROADMAP.md#versioned-skill-releases).
+
+Run the current helper from the folder containing the installed `SKILL.md`.
 
 ### Check for skill updates
 
