@@ -77,13 +77,23 @@ Then:
 
 2. Open Codex in your project, type `$evidence-gated-capability-adoption` and select it. Restart Codex if the skill isn't listed, then check the folder layout and scope. See [OpenAI's skill discovery documentation](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
 
-**Already using a recent GitHub CLI?** [`gh skill install`](https://cli.github.com/manual/gh_skill_install) is another **fresh-install** option (preview). Run it from the target project:
+**Already using a recent GitHub CLI?** Use [`gh skill install`](https://cli.github.com/manual/gh_skill_install)
+as a **staging** option (preview). Set `STAGE_DIR` to an empty directory
+outside all Codex skill discovery locations and `REF` to the full reviewed
+commit SHA:
 
 ```bash
-gh skill install sundayj/EvidenceGatedCapabilityAdoption skills/evidence-gated-capability-adoption --agent codex --scope project --pin REF
+gh skill install sundayj/EvidenceGatedCapabilityAdoption skills/evidence-gated-capability-adoption --pin REF --dir STAGE_DIR
 ```
 
-Replace `REF` with the full reviewed commit SHA, then verify the skill in Codex as above. This command manages the copy itself; do not also copy the folder. If your GitHub CLI does not offer `gh skill`, use ZIP or Git. Do not run a general-purpose skill update against an active EGCA installation as a substitute for EGCA's update gate.
+Activate the complete staged skill folder using the copy and discovery
+steps above. Confirm successful exit and check its contents against the
+canonical nested package at that exact commit, not just that `SKILL.md` is
+present. An interrupted install can leave a partial copy, and a dry-run
+update does not check package completeness. If staging fails, do not
+activate the partial output. Use ZIP or Git instead. If staging from a
+local checkout with `--from-local`, pass the canonical nested skill
+directory itself, not the checkout root.
 
 **Next:** [Run your first EGCA program and choose where to save it](skills/evidence-gated-capability-adoption/examples/first-program.md). It includes copyable prompts, example outputs, and a fresh-session persistence check.
 
@@ -105,13 +115,15 @@ Replace `REF` with the full reviewed commit SHA, then verify the skill in Codex 
   complete folder at its existing path, and restart to verify discovery. If
   verification fails, restore the backup and confirm discovery again. Don't
   leave two installed copies of the same name.
-- **GitHub CLI-managed copy:** [`gh skill update --dry-run`](https://cli.github.com/manual/gh_skill_update)
-  can preview changes for CLI-managed skills. A pinned copy intentionally skips
-  ordinary updates. Stage and review the exact new revision, then re-pin to
-  that revision using the [installer's `--pin` and `--force` options](https://cli.github.com/manual/gh_skill_install)
-  only after the existing copy is backed up and the replacement is admitted.
-  Keep the original project/user scope. Do not unpin to accept whatever
-  happens to be latest.
+- **GitHub CLI-sourced copy:** [`gh skill update --dry-run`](https://cli.github.com/manual/gh_skill_update)
+  can preview updates for copies tracked by GitHub CLI; it skips pinned
+  copies. It does not verify completeness. For an exact pin change, stage
+  the new revision into a separate empty directory with the install command
+  above. After the gate passes, replace the entire folder using the
+  project Git or user-scoped procedure above. Do not use `--force` over
+  the active folder: it can leave files from the previous version.
+  Restore the whole backup for exact rollback. Do not unpin to accept
+  whatever happens to be latest.
 
 These are standard **package replacement** paths, not an EGCA admission
 verifier. When a governing EGCA policy applies, use that currently active
