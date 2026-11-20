@@ -2,6 +2,11 @@
 
 All notable changes to EGCA are recorded here. EGCA remains experimental; version numbers describe methodology/package compatibility and do not imply production maturity.
 
+## Unreleased
+
+- Document Python-free installation and standard package replacement through project Git, exact ZIP/Git copies, or the GitHub CLI. Existing governed updater contracts and active-program pins are not retroactively changed.
+- Show how to ask whether EGCA fits, start a program, let the agent lead authorized implementation, and resume from a durable tracker.
+
 ## 0.4.0 - 2026-11-13
 
 ### Added

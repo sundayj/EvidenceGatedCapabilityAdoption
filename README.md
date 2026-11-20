@@ -57,53 +57,119 @@ This repository has two goals:
 
 The method is deliberately **storage-agnostic**. Google Sheets, Git-tracked files, issue trackers, or a database can all serve as durable EGCA state if they preserve the required concepts.
 
-## Install in Codex
+## Install in Codex (no Python required)
 
-The installable skill lives at:
+Choose one way to get the skill folder. None requires Python:
+
+- **GitHub ZIP:** On the [repository page](https://github.com/sundayj/EvidenceGatedCapabilityAdoption), choose **Code → Download ZIP** and extract it. To pin the source, open the exact commit before downloading its archive and keep its SHA.
+- **Git:** Clone the repository with `git clone https://github.com/sundayj/EvidenceGatedCapabilityAdoption.git`. To pin the source, check out the exact reviewed SHA in that clone before copying the folder. Keep the checkout's SHA with the installation.
+
+Then:
+
+1. Copy the **whole** `skills/evidence-gated-capability-adoption` folder, not the repository root or just `SKILL.md`, to one of these locations:
+
+   | Scope | Destination folder |
+   | --- | --- |
+   | One repository | `<your-project>/.agents/skills/evidence-gated-capability-adoption/` |
+   | All your local projects | `~/.agents/skills/evidence-gated-capability-adoption/` (Windows: `%USERPROFILE%\.agents\skills\evidence-gated-capability-adoption\`) |
+
+   Create the parent folders if needed. Inside the destination, `SKILL.md`, `manifest.json`, `templates/`, and `examples/` should be direct children. Use the filesystem that runs Codex. If the skill is already installed, don't install a second copy or overwrite it: use the governed update procedure below.
+
+2. Open Codex in your project, type `$evidence-gated-capability-adoption` and select it. Restart Codex if the skill isn't listed, then check the folder layout and scope. See [OpenAI's skill discovery documentation](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
+
+### Ask Codex to install it
+
+You can ask Codex to do the same Python-free Git or ZIP install for you.
+For example:
 
 ```text
-skills/evidence-gated-capability-adoption
+Install the EGCA skill from sundayj/EvidenceGatedCapabilityAdoption for this
+project. Use the canonical skills/evidence-gated-capability-adoption folder
+from the exact GitHub commit I give you. Use Git or the ZIP, not Python.
+Check that the whole folder was installed and tell me how to verify discovery.
+If it is already installed, stop and tell me which copy you found.
 ```
 
-The `SKILL.md` includes the YAML frontmatter Codex requires (`name` and `description`). Codex installs skills under `$CODEX_HOME/skills`, which defaults to `~/.codex/skills`.
+Codex's built-in [`$skill-installer`](https://learn.chatgpt.com/docs/build-skills)
+also supports installing fresh copies from GitHub. Its current helper uses
+Python, so it is optional rather than a prerequisite. It refuses to
+overwrite an existing copy.
 
-### Recommended: ask Codex to install it
-
-In Codex, ask:
-
-```text
-Use $skill-installer to install the skill from
-https://github.com/sundayj/EvidenceGatedCapabilityAdoption/tree/main/skills/evidence-gated-capability-adoption
-```
-
-Codex's built-in skill installer accepts GitHub repository paths and installs the selected directory into your Codex skills directory.
-
-After installation, restart Codex so it reloads the skill list.
-
-### Install with the built-in installer script
-
-If you are invoking Codex's bundled installer manually, use the repository plus the skill path:
+**Already using a recent GitHub CLI?** Use [`gh skill install`](https://cli.github.com/manual/gh_skill_install)
+as a **staging** option (preview). Set `STAGE_DIR` to an empty directory
+outside all Codex skill discovery locations and `REF` to the full reviewed
+commit SHA:
 
 ```bash
-python3 scripts/install-skill-from-github.py \
-  --repo sundayj/EvidenceGatedCapabilityAdoption \
-  --path skills/evidence-gated-capability-adoption
+gh skill install sundayj/EvidenceGatedCapabilityAdoption skills/evidence-gated-capability-adoption --pin REF --dir STAGE_DIR
 ```
 
-Run that command from the bundled `skill-installer` skill directory (the exact location is Codex-version dependent).
+Activate the complete staged skill folder using the copy and discovery
+steps above. Confirm successful exit and check its contents against the
+canonical nested package at that exact commit, not just that `SKILL.md` is
+present. An interrupted install can leave a partial copy, and a dry-run
+update does not check package completeness. If staging fails, do not
+activate the partial output. Use ZIP or Git instead. If staging from a
+local checkout with `--from-local`, pass the canonical nested skill
+directory itself, not the checkout root.
 
-### Check for skill updates
+**Next:** [Run your first EGCA program and choose where to save it](skills/evidence-gated-capability-adoption/examples/first-program.md). It includes copyable prompts, example outputs, and a fresh-session persistence check.
 
-Beginning with EGCA 0.2.0, the installed package contains a read-only update checker:
+## Update an existing installation
 
-```bash
-cd "${CODEX_HOME:-$HOME/.codex}/skills/evidence-gated-capability-adoption"
-python scripts/egca_update.py check
-```
+You can ask Codex to check your installed revision, review the changelog,
+and stage a proposed update. For an existing copy, use the route below and
+apply the exact admitted revision only; asking Codex to help does not
+override the active update rules or approve a different revision.
 
-The checker reports the installed version, available version, exact canonical Git commit, changelog, and migration notes. It **does not modify any files**.
+### Update through the tool that manages your copy (no Python)
 
-An agent may run this check and explain the proposed update. The currently installed methodology governs the update; the candidate version cannot govern its own adoption.
+- **Project-local, Git-managed skill:** Use an ordinary dependency-bump PR.
+  Review the upstream changelog and migration notes and resolve the candidate
+  to an exact upstream commit. Retain the old source SHA, stage the complete
+  folder from that exact candidate, and review the package diff. Record the
+  new source SHA alongside the replacement in the consuming repository.
+  Review, test discovery in a disposable checkout, and activate through the
+  consuming project's normal merge/release controls. Rolling back that Git
+  change restores both the previous package and its recorded source.
+- **User-scoped ZIP or Git copy:** Stage the exact new copy outside skill
+  discovery folders. Keep a backup of the old folder there as well. Once the
+  exact replacement is admitted and authorized, close Codex, replace the
+  complete folder at its existing path, and restart to verify discovery. If
+  verification fails, restore the backup and confirm discovery again. Don't
+  leave two installed copies of the same name.
+- **GitHub CLI-sourced copy:** [`gh skill update --dry-run`](https://cli.github.com/manual/gh_skill_update)
+  can preview updates for copies tracked by GitHub CLI; it skips pinned
+  copies. It does not verify completeness. For an exact pin change, stage
+  the new revision into a separate empty directory with the install command
+  above. After the gate passes, replace the entire folder using the
+  project Git or user-scoped procedure above. Do not use `--force` over
+  the active folder: it can leave files from the previous version.
+  Restore the whole backup for exact rollback. Do not unpin to accept
+  whatever happens to be latest.
+
+These are standard **package replacement** paths, not an EGCA admission
+verifier. When a governing EGCA policy applies, use that currently active
+policy and the host's required authority and evidence before replacement.
+Neither a tool refresh nor a human clicking Update is evidence of admission.
+If the installed policy requires its legacy updater to validate/apply the
+admission, follow that policy; these instructions do not retrofit a new
+governance path into old installations.
+
+For an active program, keep its exact governing revision available and pinned:
+prefer a project-owned copy, or change the distribution copy only after
+confirming that the agent can still load that program's recorded revision.
+If that revision cannot be recovered, pause changes to that program rather
+than using the newest skill. Upgrading the installed package does not
+migrate a program.
+
+### Legacy EGCA-managed automated updates
+
+The original automated checker and admission validator remain available for
+existing workflows. **This separate path** still requires Python. From the
+folder containing the installed `SKILL.md`, run
+`python scripts/egca_update.py check` for a read-only report of the available
+version, exact canonical commit, changelog and migration notes.
 
 For the one-time **0.3.1 -> 0.4.0 bootstrap**, 0.3.1 remains the governing methodology. After the exact candidate commit has received the explicit approval required by 0.3.1 and the host grants the update action, run:
 
@@ -127,39 +193,7 @@ There is intentionally no evidence-free or silent self-update mode. Autonomous c
 
 ### Updating a pre-0.2 installation
 
-Older installations do not contain the updater. The built-in installer intentionally refuses to overwrite an existing skill directory, so remove the old copy first:
-
-```bash
-rm -rf "${CODEX_HOME:-$HOME/.codex}/skills/evidence-gated-capability-adoption"
-```
-
-Then reinstall from the canonical skill path above and restart/reload Codex.
-
-If you previously copied this repository root directly into `~/.codex/skills/evidence-gated-capability-adoption`, reinstall from the `skills/evidence-gated-capability-adoption` path so future packaging changes remain isolated from repository-level documentation.
-
-### Verify the installation
-
-Check that the installed skill starts with valid frontmatter:
-
-```bash
-sed -n '1,8p' "${CODEX_HOME:-$HOME/.codex}/skills/evidence-gated-capability-adoption/SKILL.md"
-```
-
-It should begin with:
-
-```yaml
----
-name: evidence-gated-capability-adoption
-description: ...
----
-```
-
-The installed package should also contain:
-
-```text
-manifest.json
-scripts/egca_update.py
-```
+Older copies lack the updater. Follow the currently installed methodology and host permissions to approve the exact replacement revision first. Back up the existing skill folder outside all scanned skill locations, then copy the approved package into the chosen location and verify discovery. Do not replace or reinterpret any active program's governing version.
 
 ## Distribution direction
 

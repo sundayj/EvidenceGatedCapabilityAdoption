@@ -12,6 +12,7 @@ This roadmap tracks methodology, packaging, distribution, and validation work th
 - [x] Define exact-revision evidence admission under the currently active methodology; candidate methodology cannot govern itself.
 - [x] Refuse evidence-free or silent mutation of the installed skill.
 - [ ] Productionize autonomous update application with authenticated provenance, independent audit, atomic activation, rollback, and host-authority checks.
+- [ ] Remove the Python runtime requirement from the legacy automated EGCA-managed updater. The normal package transport uses existing host distribution tooling. Prefer a reviewed, versioned release for automation. If standalone activation needs a helper, keep one portable implementation rather than separate shell validators. Before promoting it, prove parity for exact-revision and payload binding, admission and independent evidence, active-program pins, host authority, fail-closed recovery, and rollback with backups outside skill discovery roots. Python may remain a developer/test dependency. Do not treat the generic transport as admission.
 - [ ] Publish immutable tagged releases and signed/checksummed release artifacts; move the updater from the experimental `main` channel to release artifacts once that release process exists.
 - [ ] Add CI that verifies the root compatibility copy and installable skill package stay synchronized where their contracts overlap.
 
