@@ -77,6 +77,24 @@ Then:
 
 2. Open Codex in your project, type `$evidence-gated-capability-adoption` and select it. Restart Codex if the skill isn't listed, then check the folder layout and scope. See [OpenAI's skill discovery documentation](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
 
+### Ask Codex to install it
+
+You can ask Codex to do the same Python-free Git or ZIP install for you.
+For example:
+
+```text
+Install the EGCA skill from sundayj/EvidenceGatedCapabilityAdoption for this
+project. Use the canonical skills/evidence-gated-capability-adoption folder
+from the exact GitHub commit I give you. Use Git or the ZIP, not Python.
+Check that the whole folder was installed and tell me how to verify discovery.
+If it is already installed, stop and tell me which copy you found.
+```
+
+Codex's built-in [`$skill-installer`](https://learn.chatgpt.com/docs/build-skills)
+also supports installing fresh copies from GitHub. Its current helper uses
+Python, so it is optional rather than a prerequisite. It refuses to
+overwrite an existing copy.
+
 **Already using a recent GitHub CLI?** Use [`gh skill install`](https://cli.github.com/manual/gh_skill_install)
 as a **staging** option (preview). Set `STAGE_DIR` to an empty directory
 outside all Codex skill discovery locations and `REF` to the full reviewed
@@ -98,6 +116,11 @@ directory itself, not the checkout root.
 **Next:** [Run your first EGCA program and choose where to save it](skills/evidence-gated-capability-adoption/examples/first-program.md). It includes copyable prompts, example outputs, and a fresh-session persistence check.
 
 ## Update an existing installation
+
+You can ask Codex to check your installed revision, review the changelog,
+and stage a proposed update. For an existing copy, use the route below and
+apply the exact admitted revision only; asking Codex to help does not
+override the active update rules or approve a different revision.
 
 ### Update through the tool that manages your copy (no Python)
 
